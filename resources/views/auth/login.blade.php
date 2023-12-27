@@ -24,7 +24,7 @@
                         <div class="text-wrap p-4 p-lg-5 text-center d-flex align-items-center order-md-last">
                             <div class="text w-100">
                                 <h2>Welcome to : </h2><br><br><br>
-                                <h2>Insurace</h2>
+                                <h2>Insurance</h2>
                                 <h2>Agency Management System</h2>
                                 
                             <div style="height: 100px; display: flex; flex-direction: column; justify-content: flex-end;">

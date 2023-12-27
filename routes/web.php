@@ -64,14 +64,25 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/customer/delete/account/{id}', [CustomerController::class, 'DeleteCustomerDetails'])->name('delete-customer-details');
 
 
+    //One Time Purchase
+    Route::get('/admin/create/onetime/purchase', [PaymentPlanController::class, 'CreateOneTimePurchase'])->name('create-onetime-purchase');
+    Route::post('/admin/store/onetime/purchase', [PaymentPlanController::class, 'StoreOneTimePurchase'])->name('store-onetime-purchase');
+    Route::get('/admin/view/onetime/purchase', [PaymentPlanController::class, 'ViewOneTimePurchase'])->name('view-onetime-purchases');
+    Route::get('/test/account/{id}', [PaymentPlanController::class, 'Test'])->name('test.details');
+
+
     //Payment Plan
 
     Route::get('/admin/create/payment/plan', [PaymentPlanController::class, 'CreatePaymentPlan'])->name('create-payment-plan');
     Route::post('/admin/store/payment/plan', [PaymentPlanController::class, 'StorePaymentPlan'])->name('store-payment-plan');
     Route::get('/admin/view/payment/plans', [PaymentPlanController::class, 'ViewPaymentPlans'])->name('view-payment-plans');
     Route::get('/admin/payment/status/{id}', [CustomerController::class, 'PaymentPlanActive'])->name('active-payment-plans');
+    Route::get('paymentplan/inactive/{id}', [PaymentPlanController::class, 'PaymentPlanInactive'])->name('paymentplan.inactive');
+
+    Route::get('paymentplan/active/{id}', [PaymentPlanController::class, 'PaymentPlanActive'])->name('paymentplan.active');
     
     Route::get('/admin/check/commission', [PaymentPlanController::class, 'ViewCommission'])->name('commission-check');
+    Route::get('/invoice/payment/{id}', [PaymentPlanController::class, 'Invoice'])->name('invoice.payment');
 
    
     

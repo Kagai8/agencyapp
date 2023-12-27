@@ -17,4 +17,9 @@ public function paymentPlans()
     return $this->hasMany(PaymentPlan::class);
 }
 
+public function onetimePurchases()
+{
+    return $this->hasMany(OneTimePurchase::class);
+}
+
 }

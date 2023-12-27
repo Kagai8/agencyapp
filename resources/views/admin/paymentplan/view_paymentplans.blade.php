@@ -27,7 +27,11 @@
 											<th>Name </th>
 											<th>Premium </th>
 											<th>Installment </th>
+											<th>Months </th>
 											<th>Due Date </th>
+											<th>Approval </th>
+											<th>Status</th>
+											<th>Action</th>
 											
 											
 											 
@@ -40,14 +44,36 @@
 											 <td>{{ $item->customer_name }}</td>
 											 <td>{{ $item->original_amount }} </td>
 											 <td> {{ $item->amount }}</td>
+											 <td> {{ $item->months }}</td>
 											 <td> {{ $item->due_date }}</td>
+											 <td>
+											 	@if($item->approval == 0)
+											 	<span class="badge badge-pill badge-success"> Approved </span>
+											 	@else
+									           <span class="badge badge-pill badge-warning"> Pending Approval </span>
+											 	@endif
 
+											 </td>
+											 <td>
+											 	@if($item->status == 0)
+											 	<span class="badge badge-pill badge-success"> Active </span>
+											 	@else
+									           <span class="badge badge-pill badge-danger"> InActive </span>
+											 	@endif
 
+											 </td>
 
-											
-																 
+											 <td>
+												 
+												 	@if($item->status == 1)
+												 	<a href="{{ route('paymentplan.inactive',$item->id) }}" class="btn btn-danger" title="Inactive Now"><i class="fa fa-arrow-down"></i> </a>
+													 @else
+												 <a href="{{ route('paymentplan.active',$item->id) }}" class="btn btn-success" title="Active Now"><i class="fa fa-arrow-up"></i> </a>
+												 @endif
+												 <a href="{{ route('invoice.payment',$item->id) }}" class="btn btn-primary" title="Print"><i class="fa fa-print"></i> </a>
+											</td>																 
 										 </tr>
-										  @endforeach
+										  	@endforeach
 										</tbody>
 							 
 						  			</table>

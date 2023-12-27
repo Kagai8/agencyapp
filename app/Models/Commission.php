@@ -15,4 +15,9 @@ class Commission extends Model
     {
         return $this->belongsTo(PaymentPlan::class);
     }
+
+    public function onetimePurchases()
+    {
+        return $this->belongsTo(OneTimePurchase::class);
+    }
 }

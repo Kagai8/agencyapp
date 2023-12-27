@@ -28,8 +28,6 @@ class CustomerController extends Controller
         'customer_contact_person_name' => $request->customer_contact_person_name,
         'customer_contact_person_email' => $request->customer_contact_person_email,
         'customer_contact_person_phone' => $request->customer_contact_person_phone,
-        'customer_premium_price' => $request->customer_premium_price,
-        'customer_credit_limit' => $request->customer_credit_limit,
         'customer_discount' => $request->customer_discount,
         
 
@@ -73,8 +71,6 @@ class CustomerController extends Controller
         'customer_contact_person_name' => $request->customer_contact_person_name,
         'customer_contact_person_email' => $request->customer_contact_person_email,
         'customer_contact_person_phone' => $request->customer_contact_person_phone,
-        'customer_premium_price' => $request->customer_premium_price,
-        'customer_credit_limit' => $request->customer_credit_limit,
         'customer_discount' => $request->customer_discount,
         
 

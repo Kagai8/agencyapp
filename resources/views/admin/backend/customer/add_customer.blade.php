@@ -207,7 +207,7 @@
 					<!--Salary Section-->
 					<section class="content">
 			 			<div class="box-header with-border">
-				  			<h4 class="box-title" style="text-decoration: underline;">3.Premium Financing</h4>
+				  			<h4 class="box-title" style="text-decoration: underline;">3.In Case of Discount:</h4>
 						</div>
 					 	<div class="row">
 							<div class="col-12">	
@@ -229,20 +229,7 @@
 										</div>
 									</div> <!-- end col md 4 -->
 
-									<div class="col-md-6">
-	 									<div class="form-group">
-											<div class="form-group">
-												<h5>Credit Limit:  <span class="text-danger">*</span></h5>
-												<div class="controls">
-												<input type="text" name="customer_credit_limit" class="form-control" required="">
-											     @error('customer_credit_limit') 
-												 <span class="text-danger">{{ $message }}</span>
-												 @enderror
-									 	  		</div>
-		 									</div>
-				
-										</div>
-									</div> <!-- end col md 4 -->
+									
 			
 								</div> <!-- end 1st row  -->
 
