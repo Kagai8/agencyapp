@@ -99,8 +99,8 @@
             </span>
           </a>
           <ul class="treeview-menu">
-              <li class=""><a href="{{ route('commission-check')}}"><i class="ti-more"></i>Create Users</a></li>
-              <li class=""><a href="{{ route('commission-check')}}"><i class="ti-more"></i>Manage Users</a></li>
+              <li class=""><a href="{{ route('create-user')}}"><i class="ti-more"></i>Create Users</a></li>
+              <li class=""><a href="{{ route('view-user')}}"><i class="ti-more"></i>Manage Users</a></li>
               
           </ul>
         </li>

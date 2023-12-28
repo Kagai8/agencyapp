@@ -6,6 +6,7 @@ use App\Http\Controllers\Backend\EmployeeController;
 use App\Http\Controllers\Backend\PayRollController;
 use App\Http\Controllers\Backend\CustomerController;
 use App\Http\Controllers\Backend\PaymentPlanController;
+use App\Http\Controllers\Backend\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -85,9 +86,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/invoice/payment/{id}', [PaymentPlanController::class, 'Invoice'])->name('invoice.payment');
 
    
-    
-    
+    //User Management
 
+    Route::get('/admin/create/user', [UserController::class, 'CreateUser'])->name('create-user');
+    Route::post('/admin/store/user', [UserController::class, 'StoreUser'])->name('store-user');
+    Route::get('/admin/view/user', [UserController::class, 'ViewUser'])->name('view-user');
+    Route::get('/admin/user/edit/{id}', [UserController::class, 'EditUser'])->name('edit-user');
+    Route::post('/admin/user/update/{id}', [UserController::class, 'UpdateUser'])->name('update-user');
+    Route::get('/admin/user/delete/{id}', [UserController::class, 'DeleteUser'])->name('delete-user');
     
 });
 
