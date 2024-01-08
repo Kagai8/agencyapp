@@ -52,9 +52,13 @@
 		<div class="icon bg-danger-light rounded w-60 h-60">
 			<i class="text-danger mr-0 font-size-24 mdi mdi-phone-incoming"></i>
 		</div>
-		<div>
-			<p class="text-mute mt-20 mb-0 font-size-16">Total Commisson </p>
-			<h3 class="text-white mb-0 font-weight-500">KES {{ $totalCommission }} <small class="text-danger"></small></h3>
+		<div>@if(auth()->check()&& auth()->user()->role->name === 'User')
+			<p class="text-mute mt-20 mb-0 font-size-16">Commisson By You</p>
+			<h3 class="text-white mb-0 font-weight-500">KES {{ $totalCommissionUser }} <small class="text-danger"></small></h3>
+			@else
+			<p class="text-mute mt-20 mb-0 font-size-16">Total Comission</p>
+			<h3 class="text-white mb-0 font-weight-500">KES {{ $totalCommissions }} <small class="text-danger"></small></h3>
+			@endif
 		</div>
 	</div>
 </div>

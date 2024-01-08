@@ -51,7 +51,7 @@
 											 <td> {{ $item->due_date }}</td>
 
 											 <td>
-											 	@if($item->approval == 0)
+											 	@if($item->approval == 1)
 											 	<span class="badge badge-pill badge-success"> Approved </span>
 											 	@else
 									           <span class="badge badge-pill badge-warning"> Pending Approval </span>
@@ -78,10 +78,12 @@
 												 <a href="{{ route('paymentplan.active',$item->id) }}" class="btn btn-success" title="Active Now"><i class="fa fa-arrow-up"></i> </a>
 												 @endif
 												 <a href="{{ route('invoice.payment',$item->id) }}" class="btn btn-primary" title="Print"><i class="fa fa-print"></i> </a>
-												 @if($item->approval == 1)
-												 	<a href="{{ route('paymentplan.disapproved',$item->id) }}" class="btn btn-warning" title="Disapproved Now"><i class="fa fa-arrow-down"></i> </a>
+												 @if(auth()->check()&& auth()->user()->role->name === 'Chairman')
+												 @if($item->approval == 0)
+												 	<a href="{{ route('paymentplan.approved',$item->id) }}" class="btn btn-warning" title="Aprrove Now"><i class="fa fa-arrow-down"></i> </a>
 													 @else
-												 <a href="{{ route('paymentplan.approved',$item->id) }}" class="btn btn-warning" title="Approve Now"><i class="fa fa-arrow-up"></i> </a>
+												 <a href="#" class="btn btn-Light" title="Already Approved "><i class="fa fa-arrow-up"></i> </a>
+												 @endif
 												 @endif
 											</td>																 
 										 </tr>

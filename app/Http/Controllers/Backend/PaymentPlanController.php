@@ -42,7 +42,9 @@ class PaymentPlanController extends Controller
         'commission_premium' => $request->input('commission_premium'),
         'deposit_amount' => $request->input('deposit_amount'),
         'created_by' => auth()->user()->name,
-        'approval' => ($request->input('months') <= 3) ? 0 : 1,
+        'approval' => ($request->input('months') <= 3) ? 1 : 0,
+        'commission_credited' => ($request->input('months') <= 3) ? 1 : 0,
+
         // Add other fields as needed
     ]);
 
@@ -108,7 +110,7 @@ class PaymentPlanController extends Controller
     $paymentPlan = PaymentPlan::findOrFail($id);
 
     // Check if the user is the chairman
-    if (auth()->user()->role == 'chairman') {
+    if (auth()->user()->role->name == 'Chairman') {
         // Chairman can approve
         $paymentPlan->update(['approval' => 1]);
 
@@ -175,8 +177,24 @@ class PaymentPlanController extends Controller
             ->join('one_time_purchases', 'commissions.onetime_purchase_id', '=', 'one_time_purchases.id')
             ->select('commissions.*', 'one_time_purchases.original_amount', 'one_time_purchases.created_by')
             ->latest()->get();
+
+        $currentUserName = auth()->user()->name;
+
+        $commission_payment_plans_by_current_user = DB::table('commissions')
+            ->join('payment_plans', 'commissions.payment_plan_id', '=', 'payment_plans.id')
+            ->where('payment_plans.created_by', $currentUserName)
+            ->select('commissions.*', 'payment_plans.original_amount', 'payment_plans.created_by')
+            ->latest()
+            ->get();
+
+        $commission_onetime_purchases_by_current_user = DB::table('commissions')
+            ->join('one_time_purchases', 'commissions.onetime_purchase_id', '=', 'one_time_purchases.id')
+            ->where('one_time_purchases.created_by', $currentUserName)
+            ->select('commissions.*', 'one_time_purchases.original_amount', 'one_time_purchases.created_by')
+            ->latest()
+            ->get();
         
-        return view('admin.commission.view_commissions',compact('commission_payment_plans','commission_onetime_purchases'));
+        return view('admin.commission.view_commissions',compact('commission_payment_plans','commission_onetime_purchases','commission_onetime_purchases_by_current_user','commission_payment_plans_by_current_user'));
     } 
 
 

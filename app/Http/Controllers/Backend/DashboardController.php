@@ -13,7 +13,7 @@ class DashboardController extends Controller
 {
     public function index(){
         
-        $commissions = Commission::sum('commission');
+        $totalCommissions = Commission::sum('commission');
         $payment_plans = PaymentPlan::latest()->get();
         $employees = Employee::latest()->get();
         $customers = Customer::latest()->get();
@@ -24,8 +24,10 @@ class DashboardController extends Controller
         ->where('one_time_purchases.created_by', auth()->user()->name)
         ->sum('commissions.commission');
 
-        $totalCommission = $totalCommissionPaymentPlan + $totalCommissionOneTimePurchase;
+        $totalCommissionUser = $totalCommissionPaymentPlan + $totalCommissionOneTimePurchase;
 
-        return view('admin.index',compact('commissions','payment_plans','employees','customers','totalCommission'));
+
+
+        return view('admin.index',compact('totalCommissions','payment_plans','employees','customers','totalCommissionUser'));
     }
 }
