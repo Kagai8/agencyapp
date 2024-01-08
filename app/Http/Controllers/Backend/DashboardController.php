@@ -17,7 +17,15 @@ class DashboardController extends Controller
         $payment_plans = PaymentPlan::latest()->get();
         $employees = Employee::latest()->get();
         $customers = Customer::latest()->get();
+        $totalCommissionPaymentPlan = Commission::join('payment_plans', 'commissions.payment_plan_id', '=', 'payment_plans.id')
+        ->where('payment_plans.created_by', auth()->user()->name)
+        ->sum('commissions.commission');
+        $totalCommissionOneTimePurchase = Commission::join('one_time_purchases', 'commissions.onetime_purchase_id', '=', 'one_time_purchases.id')
+        ->where('one_time_purchases.created_by', auth()->user()->name)
+        ->sum('commissions.commission');
 
-        return view('admin.index',compact('commissions','payment_plans','employees','customers'));
+        $totalCommission = $totalCommissionPaymentPlan + $totalCommissionOneTimePurchase;
+
+        return view('admin.index',compact('commissions','payment_plans','employees','customers','totalCommission'));
     }
 }

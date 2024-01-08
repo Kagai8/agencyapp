@@ -106,6 +106,31 @@
 									
 			
 								</div> <!-- end 2nd row  -->
+								<div class="row"> <!-- start 5th row  -->
+
+									<div class="col-md-6">
+									 	<div class="form-group">
+											<h5>Gender <span class="text-danger">*</span></h5>
+											<div class="controls">
+												<select name="gender" class="form-control" required="" >
+													<option value="" selected="">Select Gender</option>
+													<option value="Male">Male</option>
+													<option value="Female">Female</option>	
+												</select>
+												@error('gender') 
+											 <span class="text-danger">{{ $message }}</span>
+											 @enderror 
+											 </div>
+										</div>
+									</div> <!-- end col md 4 -->
+
+									
+
+									
+									
+			
+								</div> <!-- end 5th row  -->
+
 								
 								
 								

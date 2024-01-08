@@ -15,13 +15,18 @@
     </style>
 				  <div class="bb-1 clearFix">
 					<div class="text-right pb-15">
-						
-						<button id="print2" class="btn btn-rounded btn-warning" type="button"> <span><i class="fa fa-print"></i> Print</span> </button>
-					</div>	
+                    <a href="{{ route('receipt-generate-pp',['id' => $paymentplan->id]) }}" class="btn btn-rounded btn-warning" target="_blank">
+        <span><i class="fa fa-print"></i>Print Receipt</span>
+    </a>
+                </div>
 				  </div>
 				</div>
 				<div class="col-12">
 				  <div class="page-header">
+				  	<div class="text-center">
+    <img src="{{ asset('logo/logo.jpg') }}" alt="Company Logo" class="img-fluid mb-3" style="max-width: 200px;">
+</div>
+
 					<h2 class="d-inline"><span class="font-size-30">Payment Plan Details</span></h2>
 					<div class="pull-right text-right">
 						<h3>{{ \Carbon\Carbon::now()->format('d F Y')}}</h3>
@@ -35,9 +40,9 @@
 				<div class="col-md-6 invoice-col">
 				  <strong>From</strong>	
 				  <address>
-					<strong class="text-blue font-size-24">Agency Company Name</strong><br>
+					<strong class="text-blue font-size-24">Greenline Insurance Agencies</strong><br>
 					<strong class="d-inline">Kitale</strong><br>
-					<strong>Phone: (00) 123-456-7890 &nbsp;&nbsp;&nbsp;&nbsp; Email: info@example.com</strong>  
+					<strong>Phone: 0710 266 850 &nbsp;&nbsp;&nbsp;&nbsp; Email: greenlineins.agencies@gmail.com</strong>  
 				  </address>
 				</div>
 				<!-- /.col -->
@@ -80,13 +85,11 @@
 					  <td>{{$paymentplan->deposit_amount}}</td>
 					  <td class="text-right">{{$paymentplan->amount}}</td>
 					  <td class="text-right">{{$paymentplan->months}}</td>
-					  @if($paymentplan->customer->discount = 'NULL')
-					  <td class="text-right">0</td>
-					  @else
+			
 					  <td>{{$paymentplan->customer->customer_discount}}</td>
-					  @endif
+			
 					  <td class="text-right">{{\Carbon\Carbon::parse($paymentplan->created_at )->format('d F Y')}}</td>
-					  <td class="text-right">{{$paymentplan->original_amount}}</td>
+					  <td class="text-right">{{$paymentplan->original_amount - $paymentplan->customer->customer_discount}}</td>
 					  
 					</tr>
 					
@@ -101,13 +104,20 @@
 				<div class="col-12 text-right">
 					
 					<div class="total-payment">
-						<h3><b>Total :</b> KES {{$paymentplan->original_amount}}</h3>
+						<h3><b>Total :</b> KES {{$paymentplan->original_amount - $paymentplan->customer->customer_discount}}</h3>
 					</div>
 
 				</div>
 				<!-- /.col -->
 			  </div>
 			  <!-- /.row -->
+			 <div class="row no-print">
+        <div class="col-12">
+            <div class="pull-left">
+                <p><strong>Served By:</strong> {{ auth()->user()->name }}</p>
+            </div>
+        </div>
+    </div>
 
 			  <!-- this row will not appear when printing -->
 			  

@@ -30,6 +30,9 @@
 											<th>Months </th>
 											<th>Due Date </th>
 											<th>Approval </th>
+											@if(auth()->check()&& auth()->user()->role->name === 'Admin' || auth()->user()->role->name === 'Chairman' || auth()->user()->role->name === 'Manager')
+											<th>Created By </th>
+											@endif
 											<th>Status</th>
 											<th>Action</th>
 											
@@ -40,12 +43,13 @@
 										<tbody>
 										 @foreach($payment_plans as $item)
 										 <tr>
-											 <td>PP00{{ $item->id }}</td>
+											 <td>PP{{ $item->id }}</td>
 											 <td>{{ $item->customer_name }}</td>
 											 <td>{{ $item->original_amount }} </td>
 											 <td> {{ $item->amount }}</td>
 											 <td> {{ $item->months }}</td>
 											 <td> {{ $item->due_date }}</td>
+
 											 <td>
 											 	@if($item->approval == 0)
 											 	<span class="badge badge-pill badge-success"> Approved </span>
@@ -54,6 +58,9 @@
 											 	@endif
 
 											 </td>
+											 @if(auth()->check()&& auth()->user()->role->name === 'Admin' || auth()->user()->role->name === 'Chairman' || auth()->user()->role->name === 'Manager')
+											 <td>{{ $item->created_by }} </td>
+											 @endif
 											 <td>
 											 	@if($item->status == 0)
 											 	<span class="badge badge-pill badge-success"> Active </span>
@@ -71,6 +78,11 @@
 												 <a href="{{ route('paymentplan.active',$item->id) }}" class="btn btn-success" title="Active Now"><i class="fa fa-arrow-up"></i> </a>
 												 @endif
 												 <a href="{{ route('invoice.payment',$item->id) }}" class="btn btn-primary" title="Print"><i class="fa fa-print"></i> </a>
+												 @if($item->approval == 1)
+												 	<a href="{{ route('paymentplan.disapproved',$item->id) }}" class="btn btn-warning" title="Disapproved Now"><i class="fa fa-arrow-down"></i> </a>
+													 @else
+												 <a href="{{ route('paymentplan.approved',$item->id) }}" class="btn btn-warning" title="Approve Now"><i class="fa fa-arrow-up"></i> </a>
+												 @endif
 											</td>																 
 										 </tr>
 										  	@endforeach

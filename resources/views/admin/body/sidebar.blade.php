@@ -24,7 +24,8 @@
                   <i data-feather="pie-chart"></i>
       			<span>Dashboard</span>
                 </a>
-              </li>  
+            </li>  
+          @if(auth()->check()&& auth()->user()->role->name === 'Admin' || auth()->user()->role->name === 'Chairman' || auth()->user()->role->name === 'Manager')
           <li class="treeview">
             <a href="">
               <i data-feather="message-circle"></i>
@@ -51,6 +52,7 @@
               
           </ul>
         </li>
+        @endif
 
         <li class="treeview ">
           <a href="#">
@@ -91,6 +93,7 @@
               
           </ul>
         </li>
+        @if(auth()->check()&& auth()->user()->role->name === 'Admin' || auth()->user()->role->name === 'Chairman' || auth()->user()->role->name === 'Manager')
         <li class="treeview ">
           <a href="#">
             <i data-feather="mail"></i> <span>Users</span>
@@ -104,6 +107,7 @@
               
           </ul>
         </li>
+        @endif
 
 
        

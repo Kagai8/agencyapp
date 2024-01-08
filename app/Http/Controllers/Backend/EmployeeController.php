@@ -57,6 +57,8 @@ class EmployeeController extends Controller
         'employee_nhif' => $request->employee_nhif,
         'employee_cotu' => $request->employee_cotu,
         'employee_loans' => $request->employee_loans,
+
+        'created_by' => auth()->user()->name,
         
 
         'employee_image' => $save_url,
@@ -190,4 +192,11 @@ class EmployeeController extends Controller
         return redirect()->back()->with($notification);
 
      }// end method 
+
+     public function EmployeePerformance($id){
+
+        $employee = Employee::findOrFail($id);
+        return view('admin.backend.employee.performance',compact('employee'));
+
+    }
 }

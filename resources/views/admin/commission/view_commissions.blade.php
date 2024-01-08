@@ -27,6 +27,9 @@
 											<th>Premium </th>
 											<th>Commission </th>
 											<th>Date </th>
+											@if(auth()->check()&& auth()->user()->role->name === 'Admin' || auth()->user()->role->name === 'Chairman' || auth()->user()->role->name === 'Manager')
+											<th>Initiated By </th>
+											@endif
 											
 											 
 										</tr>
@@ -38,6 +41,9 @@
 											 <td>{{ $item->original_amount }}</td>
 											 <td>{{ $item->commission }} </td>
 											 <td> {{ \Carbon\Carbon::parse($item->created_at )->format('d F Y')}}</td>
+											 @if(auth()->check()&& auth()->user()->role->name === 'Admin' || auth()->user()->role->name === 'Chairman' || auth()->user()->role->name === 'Manager')
+											 <td>{{ $item->created_by }} </td>
+											 @endif
 											 
 											
 											
@@ -83,6 +89,9 @@
 											<th>Premium </th>
 											<th>Commission </th>
 											<th>Date </th>
+											@if(auth()->check()&& auth()->user()->role->name === 'Admin' || auth()->user()->role->name === 'Chairman' || auth()->user()->role->name === 'Manager')
+											<th>Initiated By </th>
+											@endif
 											
 											 
 										</tr>
@@ -94,8 +103,9 @@
 											 <td>{{ $item->original_amount }}</td>
 											 <td>{{ $item->commission }} </td>
 											 <td> {{ \Carbon\Carbon::parse($item->created_at )->format('d F Y')}}</td>
-											 
-											
+											 @if(auth()->check()&& auth()->user()->role->name === 'Admin' || auth()->user()->role->name === 'Chairman' || auth()->user()->role->name === 'Manager')
+											 <td>{{ $item->created_by }} </td>
+											 @endif
 											
 																 
 										 </tr>

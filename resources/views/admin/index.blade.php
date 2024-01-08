@@ -14,8 +14,8 @@
 			<i class="text-primary mr-0 font-size-24 mdi mdi-account-multiple"></i>
 		</div>
 		<div>
-			<p class="text-mute mt-20 mb-0 font-size-16">Payment Plans</p>
-			<h3 class="text-white mb-0 font-weight-500">{{ count($payment_plans) }} Plans <small class="text-success"></small></h3>
+			<p class="text-mute mt-20 mb-0 font-size-16">Payment Plans By You</p>
+			<h3 class="text-white mb-0 font-weight-500">{{App\Models\PaymentPlan::where('created_by','=', auth()->user()->name)->count()}}<small class="text-success"></small></h3>
 		</div>
 	</div>
 </div>
@@ -27,8 +27,8 @@
 			<i class="text-warning mr-0 font-size-24 mdi mdi-car"></i>
 		</div>
 		<div>
-			<p class="text-mute mt-20 mb-0 font-size-16">Customers </p>
-			<h3 class="text-white mb-0 font-weight-500">{{ count($customers) }} <small class="text-success"></small></h3>
+			<p class="text-mute mt-20 mb-0 font-size-16">Cust Accs You Created</p>
+			<h3 class="text-white mb-0 font-weight-500">{{App\Models\Customer::where('created_by','=', auth()->user()->name)->count()}} <small class="text-success"></small></h3>
 		</div>
 	</div>
 </div>
@@ -40,8 +40,8 @@
 			<i class="text-info mr-0 font-size-24 mdi mdi-sale"></i>
 		</div>
 		<div>
-			<p class="text-mute mt-20 mb-0 font-size-16">Employees </p>
-			<h3 class="text-white mb-0 font-weight-500">{{ count($employees) }} <small class="text-danger"> </small></h3>
+			<p class="text-mute mt-20 mb-0 font-size-16">One Time Purchases </p>
+			<h3 class="text-white mb-0 font-weight-500">{{App\Models\OneTimePurchase::where('created_by','=', auth()->user()->name)->count()}} <small class="text-danger"> </small></h3>
 		</div>
 	</div>
 </div>
@@ -54,7 +54,7 @@
 		</div>
 		<div>
 			<p class="text-mute mt-20 mb-0 font-size-16">Total Commisson </p>
-			<h3 class="text-white mb-0 font-weight-500">KES {{ $commissions }} <small class="text-danger"></small></h3>
+			<h3 class="text-white mb-0 font-weight-500">KES {{ $totalCommission }} <small class="text-danger"></small></h3>
 		</div>
 	</div>
 </div>

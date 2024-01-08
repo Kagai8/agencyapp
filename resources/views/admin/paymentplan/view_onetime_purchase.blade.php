@@ -26,6 +26,9 @@
 											<th>One Time Purchase ID</th>
 											<th>Name </th>
 											<th>Premium </th>
+											@if(auth()->check()&& auth()->user()->role->name === 'Admin' || auth()->user()->role->name === 'Chairman' || auth()->user()->role->name === 'Manager')
+											<th>Created By </th>
+											@endif
 											<th>Date</th>
 											<th>Print Receipt</th>
 											
@@ -39,6 +42,11 @@
 											 <td>OTP{{ $item->id }}</td>
 											 <td>{{ $item->customer_name }}</td>
 											 <td>{{ $item->original_amount }} </td>
+
+											 @if(auth()->check()&& auth()->user()->role->name === 'Admin' || auth()->user()->role->name === 'Chairman' || auth()->user()->role->name === 'Manager')
+											 <td>{{ $item->created_by }} </td>
+											 @endif
+
 											 <td> {{ \Carbon\Carbon::parse($item->created_at )->format('d F Y')}}</td>
 											 <td width="30%">
 												 <a href="{{ route('test.details',$item->id) }}" class="btn btn-primary" title="Print"><i class="fa fa-print"></i> </a>

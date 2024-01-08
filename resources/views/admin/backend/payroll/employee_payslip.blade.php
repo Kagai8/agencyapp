@@ -107,6 +107,9 @@
     	 <div class="logo-container">
             <img src="" alt="" class="logo">
         </div>
+        <div class="large-header text-center">
+            <h1>Payslip for {{ now()->format('F Y') }}</h1>
+        </div>
         <div class="header">
 
             <span>Working Branch: Kitale</span>
@@ -245,8 +248,13 @@
             </div>
         </div>
         <div class="signature">
-            <span class="fw-bolder">For Kalyan Jewellers</span><br>
-            <span>Authorised Signatory</span>
+            <div class="signature-line">
+                        <hr>
+                        <p>Signature: ________________________</p>
+                        <p>Signed by: ________________________</p>
+            </div>
+            <span class="fw-bolder">Green Line Insurance Agency</span><br>
+            
         </div>
     </div>
 

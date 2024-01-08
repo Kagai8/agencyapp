@@ -12,92 +12,59 @@
 
 		<div class="box">
 			<div class="box-header with-border">
-			  <h5 class="box-title">One Time Purchase Generation </h5>
+			  <h5 class="box-title">Change Your Password </h5>
 			</div>
 			<!-- /.box-header -->
 			<div class="box-body">
 			  <div class="row">
 				<div class="col">
-  					<form method="post" action="{{ route('store-onetime-purchase') }}" enctype="multipart/form-data" >
+  					<form method="post" action="{{ route('update-user-password' )}}" enctype="multipart/form-data" >
 		 			@csrf
-		 			
+		 			<input type="hidden" name="id" value="{{ auth()->user()->id }}">
 			 			<div class="box-header with-border">
-				  			<h4 class="box-title" style="text-decoration: underline;">Create OneTime Purchase </h4>
+				  			<h4 class="box-title" style="text-decoration: underline;">Change Your Password </h4>
 						</div>
 					 	<div class="row">
 							<div class="col-12">	
-								<div class="row"> <!-- start 1st row  -->
-
-									<div class="col-md-6">
-	 									<div class="form-group">
-
-											<div class="form-group">
-												<h5>Customer Name: <span class="text-danger">*</span></h5>
-												<div class="controls">
-													<select name="customer_id" class="form-control" required="" >
-														<option value="" selected="" disabled="">Select Customer Name:</option>
-														@foreach($customers as $customer)
-											 			<option value="{{ $customer->id }}">{{ $customer->customer_name }}</option>	
-														@endforeach
-													</select>
-												 @error('customer_id') 
-												 <span class="text-danger">{{ $message }}</span>
-												 @enderror 
-												 </div>
-		 									</div>
-				
-										</div>
-									</div> <!-- end col md 4 -->
-
-									<div class="col-md-6">
-	 									<div class="form-group">
-											<div class="form-group">
-												<h5>Premium Price:  <span class="text-danger">*</span></h5>
-												<div class="controls">
-												<input type="text" name="original_amount" class="form-control" required="">
-											     @error('original_amount') 
-												 <span class="text-danger">{{ $message }}</span>
-												 @enderror
-									 	  		</div>
-		 									</div>
-				
-										</div>
-									</div> <!-- end col md 4 -->
-			
-								</div> <!-- end 1st row  -->
-								<br>
 								
-								<br>
 								<div class="row"> <!-- start 2nd row  -->
 
 									<div class="col-md-6">
 	 									<div class="form-group">
 
 											<div class="form-group">
-												<h5>Commission(Percentage): <span class="text-danger">*</span></h5>
+												<h5>New Password:  <span class="text-danger">*</span></h5>
 												<div class="controls">
-												<input type="text" name="commission_premium" class="form-control" required="">
-											     @error('commission_premium') 
-												 <span class="text-danger">{{ $message }}</span>
-												 @enderror
+												<input type="password" name="password" class="form-control" required="">
+											      	@error('password') 
+										                <span class="text-danger">{{ $message }}</span>
+										            @else
+										                <small class="text-muted">Minimum 8 characters</small>
+										            @enderror
 									 	  		</div>
 		 									</div>
 				
 										</div>
 									</div> <!-- end col md 4 -->
+
+								
+
+									
 			
 								</div> <!-- end 2nd row  -->
-								<br>
+							
 								
-								
-								<br>
 								
 						</div>
-						<br>
+					
 
-						 
+						<!-- Bank Details -->
+					
+					
+
+						 <br><br>
 						<div class="text-xs-right">
-							<input type="submit" class="btn btn-rounded btn-primary mb-5" value="Create One Time Purchase">
+							<input type="submit" class="btn btn-rounded btn-primary mb-5" value="Change Password ">
 						</div>
 					</form>
 

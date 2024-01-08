@@ -54,6 +54,8 @@ class UserController extends Controller
         'email' => $request->email,
         'role_id' => $request->role_id,
         'password' => Hash::make($request->password), // Encrypt the password
+        'gender' => $request->gender,
+        'created_by' => auth()->user()->name,
         
 
         'created_at' => Carbon::now(),   
@@ -117,6 +119,7 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->role_id = $request->role_id;
+        $user->gender = $request->gender;
 
         if ($request->filled('password')) {
             $user->password = Hash::make($request->password);
@@ -149,6 +152,40 @@ class UserController extends Controller
         return redirect()->route('view-user')->with('message','User Deleted Successfully');
 
     }
+
+    public function UserChangePassword()
+    {
+        return view('admin.backend.users.change_password');
+    }
+
+    public function UserUpdatePassword(Request $request)
+{
+    $request->validate([
+        'password' => 'nullable|string|min:8',
+    ]);
+
+    // Retrieve the authenticated user
+    $user = auth()->user();
+
+    if (!$user) {
+        return response()->json(['message' => 'User not found'], 404);
+    }
+
+    // Update the password if provided in the request
+    if ($request->has('password')) {
+        $user->password = bcrypt($request->password);
+        $user->save();
+    }
+    $notification = [
+            'message' => 'Password Changed Successfully',
+            'alert-type' => 'success',
+        ];
+
+        return redirect()->back()->with($notification);
+
+    
+}
+
 
     
 }

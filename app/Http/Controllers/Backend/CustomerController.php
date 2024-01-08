@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Customer;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class CustomerController extends Controller
 {
@@ -29,6 +30,7 @@ class CustomerController extends Controller
         'customer_contact_person_email' => $request->customer_contact_person_email,
         'customer_contact_person_phone' => $request->customer_contact_person_phone,
         'customer_discount' => $request->customer_discount,
+        'created_by' => auth()->user()->name,
         
 
         'created_at' => Carbon::now(),   

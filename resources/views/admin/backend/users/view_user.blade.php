@@ -26,7 +26,11 @@
 											<th>Name</th>
 											<th>Email </th>
 											<th>Role </th>
+											@if(auth()->check()&& auth()->user()->role->name === 'Admin' || auth()->user()->role->name === 'Chairman' || auth()->user()->role->name === 'Manager')
+											<th>Created By </th>
+											@endif
 											<th>Action</th>
+
 											 
 										</tr>
 									</thead>
@@ -36,6 +40,10 @@
 											 <td>{{ $item->name }}</td>
 											 <td>{{ $item->email }}</td>
 											 <td>{{ $item->role->name }} </td>
+											 @if(auth()->check()&& auth()->user()->role->name === 'Admin' || auth()->user()->role->name === 'Chairman' || auth()->user()->role->name === 'Manager')
+											 <td>{{ $item->created_by }} </td>
+											 @endif
+											 
 											 
 
 
