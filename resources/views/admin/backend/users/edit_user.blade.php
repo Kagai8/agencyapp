@@ -90,7 +90,7 @@
 											<div class="form-group">
 												<h5>User's Password:  <span class="text-danger">*</span></h5>
 												<div class="controls">
-												<input type="password" name="password" class="form-control" required="">
+												<input type="password" name="password" class="form-control" >
 											      	@error('password') 
 										                <span class="text-danger">{{ $message }}</span>
 										            @else
