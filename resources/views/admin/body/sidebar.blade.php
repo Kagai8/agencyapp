@@ -10,7 +10,8 @@
 				  <!-- logo for regular state and mobile devices -->
 					 <div class="d-flex align-items-center justify-content-center">					 	
 						  <img src="" alt="">
-						  <h3><b>Agency</b> ManagerApp</h3>
+						  <h3><b>GreenLine</b> Insurance Agencies</h3>
+              
 					 </div>
 				</a>
 			</div>
