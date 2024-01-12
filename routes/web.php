@@ -53,6 +53,7 @@ Route::group(['middleware' => ['auth', 'check.role:Admin,Manager,Chairman,User']
     Route::get('/admin/create/payment/plan', [PaymentPlanController::class, 'CreatePaymentPlan'])->name('create-payment-plan');
     Route::post('/admin/store/payment/plan', [PaymentPlanController::class, 'StorePaymentPlan'])->name('store-payment-plan');
     Route::get('/admin/view/payment/plans', [PaymentPlanController::class, 'ViewPaymentPlans'])->name('view-payment-plans');
+    Route::get('/admin/overview/payment/plans', [PaymentPlanController::class, 'OverviewPaymentPlans'])->name('overview-payment-plans');
     Route::get('/admin/payment/status/{id}', [CustomerController::class, 'PaymentPlanActive'])->name('active-payment-plans');
     Route::get('paymentplan/inactive/{id}', [PaymentPlanController::class, 'PaymentPlanInactive'])->name('paymentplan.inactive');
     Route::get('paymentplan/active/{id}', [PaymentPlanController::class, 'PaymentPlanActive'])->name('paymentplan.active');

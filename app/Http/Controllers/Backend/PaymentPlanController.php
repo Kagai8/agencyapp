@@ -44,6 +44,7 @@ class PaymentPlanController extends Controller
             'balance' => $balanceAmount,
             'due_date' => $request->input('due_date'),
             'months' => $request->input('months'),
+            'months_left' => $request->input('months'),
             'commission_premium' => $request->input('commission_premium'),
             'deposit_amount' => $request->input('deposit_amount'),
             'created_by' => auth()->user()->name,
@@ -89,11 +90,14 @@ class PaymentPlanController extends Controller
 
         $newBalance = $payment_plan->balance - $request->installment;
 
+       
+        $monthsLeft = max($payment_plan->months_left - 1, 0);
+
         PaymentPlan::findOrFail($payment_plan_id)->update([
 
         'balance' => $newBalance,
         'due_date' => $request->due_date,
-        
+        'months_left' => $monthsLeft,
         
 
         'updated_at' => Carbon::now(),   
@@ -198,6 +202,17 @@ class PaymentPlanController extends Controller
             ->latest()->get();
         
         return view('admin.paymentplan.view_paymentplans',compact('payment_plans'));
+    } 
+
+    public function OverviewPaymentPlans(){
+
+         $payment_plans = DB::table('payment_plans')
+            ->join('customers', 'payment_plans.customer_id', '=', 'customers.id')
+            ->where('approval', 1)
+            ->select('payment_plans.*', 'customers.customer_name','customers.customer_discount')
+            ->latest()->get();
+        
+        return view('admin.paymentplan.overview_paymentplans',compact('payment_plans'));
     } 
 
     public function PaymentPlanInactive($id){

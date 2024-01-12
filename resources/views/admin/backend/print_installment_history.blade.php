@@ -82,7 +82,7 @@
 
         #invoice h1 {
           color: #0087C3;
-          font-size: 1.9em;
+          font-size: 1.4em;
           line-height: 1em;
           font-weight: normal;
           margin: 0  0 10px 0;

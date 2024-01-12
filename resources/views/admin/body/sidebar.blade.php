@@ -80,7 +80,20 @@
               <li class=""><a href="{{ route('view-onetime-purchases')}}"><i class="ti-more"></i>Check One Time Purchases</a></li>
               <li class=""><a href="{{ route('create-payment-plan')}}"><i class="ti-more"></i>Create Payment Plan</a></li>
               <li class=""><a href="{{ route('view-payment-plans')}}"><i class="ti-more"></i>View Payment Plans</a></li>
+              
+          </ul>
+        </li>
+        <li class="treeview ">
+          <a href="#">
+            <i data-feather="mail"></i> <span>Payment Plan Overview </span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-right pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
               <li class=""><a href="{{ route('view-installments')}}"><i class="ti-more"></i>View Installments</a></li>
+              <li class=""><a href="{{ route('overview-payment-plans')}}"><i class="ti-more"></i>Payment Plans Overview</a></li>
+              
           </ul>
         </li>
         <li class="treeview ">
