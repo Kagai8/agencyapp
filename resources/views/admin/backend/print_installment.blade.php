@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Receipt PP{{$paymentplan->id }}</title>
+    <title>Receipt IM{{$installment->id }}</title>
     <link rel="stylesheet" href="style.css" media="all" />
     <style >
               @font-face {
@@ -106,11 +106,13 @@
           background: #EEEEEE;
           text-align: center;
           border-bottom: 1px solid #FFFFFF;
+          width: 100%;
         }
 
         table th {
           white-space: nowrap;        
           font-weight: normal;
+          width: 100%;
         }
 
         table td {
@@ -150,6 +152,7 @@
         table td.qty,
         table td.total {
           font-size: 1.2em;
+
         }
 
         table tbody tr:last-child td {
@@ -181,9 +184,8 @@
         }
 
         #thanks{
-          font-size: 1.5em;
+          font-size: 2em;
           margin-bottom: 50px;
-          text-decoration: underline;
         }
 
         #notices{
@@ -192,7 +194,7 @@
         }
 
         #notices .notice {
-          font-size: 0.5em;
+          font-size: 1.2em;
         }
 
         footer {
@@ -227,13 +229,13 @@
     <main>
       <div id="details" class="clearfix">
         <div id="client">
-          <div class="to">PAYMENT PLAN FOR:</div>
-          <h2 class="name">{{ $paymentplan->customer->customer_name }}</h2>
-          <div class="address">{{ $paymentplan->customer->customer_phone_no }}</div>
-          <div class="email"><a href="mailto:john@example.com">{{$paymentplan->customer->customer_email }}</a></div>
+          <div class="to">RECEIPT FOR:</div>
+          <h2 class="name">{{ $installment->customer->customer_name }}</h2>
+          <div class="address">{{ $installment->customer->customer_phone_no }}</div>
+          <div class="email"><a href="mailto:john@example.com">{{$installment->customer->customer_email }}</a></div>
         </div>
         <div id="invoice">
-          <h1>PAYMENT PLAN FOR PP{{$paymentplan->id }}</h1>
+          <h1>RECEIPT FOR IM{{$installment->id }}</h1>
           <div class="date">Date of Receipt: {{ \Carbon\Carbon::now()->format('d F Y H:i:s') }}</div>
           
         </div>
@@ -241,53 +243,36 @@
       <table border="0" cellspacing="0" cellpadding="0">
         <thead>
           <tr>
+            
             <th class="no">#</th>
-            <th class="desc">PREMIUM AMOUNT</th>
-            <th class="desc">DEPOSIT</th>
+            <th> PAPYMENT PLAN</th>
             <th class="desc">INSTALLMENT</th>
-            <th class="desc">PERIOD</th>
-            
-            
+
+            <th class="qty">GENERATED AT</th>
             <th class="total">TOTAL</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td class="no">01</td>
-            <td class="desc">{{$paymentplan->original_amount}}</td>
-            <td class="desc">{{$paymentplan->deposit_amount}}</td>
-            <td class="desc">{{$paymentplan->installment}}</td>
-            <td class="desc">{{$paymentplan->months}} months</td>
-            <td class="total">{{$paymentplan->original_amount}}</td>
+            <td>PP{{$installment->payment_plan_id}}</td>
+            <td class="desc">KSH {{$installment->installment}}</td>
+            <td class="qty">{{\Carbon\Carbon::parse($installment->created_at )->format('d F Y')}}</td>
+            <td class="total">KSH {{ $installment->installment }}</td>
           </tr>
           
         </tbody>
         <tfoot>
-          <tr>
-            <td colspan="2"></td>
-            <td colspan="2">SUBTOTAL(KSH)</td>
-            <td>{{ $paymentplan->original_amount  }}</td>
-          </tr>
+          
           
           <tr>
             <td colspan="2"></td>
-            <td colspan="2">DISCOUNT(KSH)</td>
-            <td>{{$paymentplan->customer->customer_discount}}</td>
-          </tr>
-       
-          <tr>
-            <td colspan="2"></td>
             <td colspan="2">GRAND TOTAL</td>
-            <td>KSH {{$paymentplan->discounted_amount}}</td>
+            <td style="text-underline-position: 20px">KSH  {{ $installment->installment }}</td>
           </tr>
         </tfoot>
       </table>
-      <br><br><br>
-      <div id="thanks">
-        Served By: <span class="underline-text">{{ auth()->user()->name }}</span>
-      </div>
-
-      <br> <br>
+      <div id="thanks">Served By: {{ auth()->user()->name }}</div>
       <div id="notices">
         <div></div>
         <div class="notice">System By @CaptainCyber Ke</div>

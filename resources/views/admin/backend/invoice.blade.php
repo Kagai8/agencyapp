@@ -83,13 +83,13 @@
 					  <td>1</td>
 					  <td>{{$paymentplan->original_amount}}</td>
 					  <td>{{$paymentplan->deposit_amount}}</td>
-					  <td class="text-right">{{$paymentplan->amount}}</td>
+					  <td class="text-right">{{$paymentplan->installment}}</td>
 					  <td class="text-right">{{$paymentplan->months}}</td>
 			
 					  <td>{{$paymentplan->customer->customer_discount}}</td>
 			
 					  <td class="text-right">{{\Carbon\Carbon::parse($paymentplan->created_at )->format('d F Y')}}</td>
-					  <td class="text-right">{{$paymentplan->original_amount - $paymentplan->customer->customer_discount}}</td>
+					  <td class="text-right">{{$paymentplan->discounted_amount}}</td>
 					  
 					</tr>
 					
@@ -104,7 +104,7 @@
 				<div class="col-12 text-right">
 					
 					<div class="total-payment">
-						<h3><b>Total :</b> KES {{$paymentplan->original_amount - $paymentplan->customer->customer_discount}}</h3>
+						<h3><b>Total :</b> KES {{$paymentplan->discounted_amount}}</h3>
 					</div>
 
 				</div>

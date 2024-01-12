@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Receipt OTP{{$onetime_purchase->id }}S </title>
+    <title>Receipt OTP{{$onetime_purchase->id }}</title>
     <link rel="stylesheet" href="style.css" media="all" />
     <style >
               @font-face {

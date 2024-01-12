@@ -25,8 +25,9 @@
 										<tr>
 											<th>Payment Plan ID</th>
 											<th>Name </th>
-											<th>Premium </th>
+											<th>Amount </th>
 											<th>Installment </th>
+											<th>Balance</th>
 											<th>Months </th>
 											<th>Due Date </th>
 											<th>Approval </th>
@@ -34,7 +35,7 @@
 											<th>Created By </th>
 											@endif
 											<th>Status</th>
-											<th>Action</th>
+											<th width="30%">Action</th>
 											
 											
 											 
@@ -45,8 +46,9 @@
 										 <tr>
 											 <td>PP{{ $item->id }}</td>
 											 <td>{{ $item->customer_name }}</td>
-											 <td>{{ $item->original_amount }} </td>
-											 <td> {{ $item->amount }}</td>
+											 <td>{{ $item->discounted_amount }} </td>
+											 <td> {{ $item->installment }}</td>
+											 <td> {{ $item->balance }}</td>
 											 <td> {{ $item->months }}</td>
 											 <td> {{ $item->due_date }}</td>
 
@@ -65,7 +67,7 @@
 											 	@if($item->status == 0)
 											 	<span class="badge badge-pill badge-success"> Active </span>
 											 	@else
-									           <span class="badge badge-pill badge-danger"> InActive </span>
+									           <span class="badge badge-pill badge-danger"> Plan Completed </span>
 											 	@endif
 
 											 </td>
@@ -85,7 +87,14 @@
 												 <a href="#" class="btn btn-Light" title="Already Approved "><i class="fa fa-arrow-up"></i> </a>
 												 @endif
 												 @endif
-											</td>																 
+												 @if($item->approval == 1)
+											 	<a href="{{ route('edit-balance',$item->id) }}" class="btn btn-warning" title="Add Installment"><i class="fa fa-money"></i> </a>
+											 	@else
+									      <a href="#" class="btn btn-warning" title="Can't Edit Until Approval"><i class="fa fa-money"></i> </a>
+											 	@endif
+											 	<a href="{{ route('installment-history',$item->id) }}" class="btn btn-info" title="Installment History"><i class="fa fa-history"></i> </a>
+											</td>		
+																							 
 										 </tr>
 										  	@endforeach
 										</tbody>

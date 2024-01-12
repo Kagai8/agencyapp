@@ -55,8 +55,11 @@ Route::group(['middleware' => ['auth', 'check.role:Admin,Manager,Chairman,User']
     Route::get('/admin/view/payment/plans', [PaymentPlanController::class, 'ViewPaymentPlans'])->name('view-payment-plans');
     Route::get('/admin/payment/status/{id}', [CustomerController::class, 'PaymentPlanActive'])->name('active-payment-plans');
     Route::get('paymentplan/inactive/{id}', [PaymentPlanController::class, 'PaymentPlanInactive'])->name('paymentplan.inactive');
-
     Route::get('paymentplan/active/{id}', [PaymentPlanController::class, 'PaymentPlanActive'])->name('paymentplan.active');
+    Route::get('paymentplan/active/{id}', [PaymentPlanController::class, 'PaymentPlanActive'])->name('paymentplan.active');
+
+    Route::get('paymentplan/edit/payment/balance/{id}', [PaymentPlanController::class, 'EditPaymentBalance'])->name('edit-balance');
+    Route::post('paymentplan/update/payment/balance', [PaymentPlanController::class, 'UpdatePaymentPlanBalance'])->name('update-balance');
     
     Route::get('/admin/check/commission', [PaymentPlanController::class, 'ViewCommission'])->name('commission-check');
     Route::get('/invoice/payment/{id}', [PaymentPlanController::class, 'Invoice'])->name('invoice.payment');
@@ -66,7 +69,10 @@ Route::group(['middleware' => ['auth', 'check.role:Admin,Manager,Chairman,User']
     Route::get('/change/user/password', [UserController::class, 'UserChangePassword'])->name('user.change.password');
     Route::post('/update/user/password', [UserController::class, 'UserUpdatePassword'])->name('update-user-password');
    
-    
+    Route::get('view/installments/payment/plans', [PaymentPlanController::class, 'ViewInstallments'])->name('view-installments');
+    Route::get('/receipt/installment/generate/{id}', [PaymentPlanController::class, 'GenerateInstallmentReceipt'])->name('generate-installment-receipt');
+    Route::get('/view/installment/history/{id}', [PaymentPlanController::class, 'ViewInstallment'])->name('installment-history');
+    Route::get('/receipt/installments/paymentplan/{id}', [PaymentPlanController::class, 'GeneratePaymentPlanInstallmentsReceipt'])->name('generate-pdf-history');
 
     
 

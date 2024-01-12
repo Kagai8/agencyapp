@@ -12,62 +12,55 @@
 
 		<div class="box">
 			<div class="box-header with-border">
-			  <h5 class="box-title">Payment Plan Generation </h5>
+			  <h5 class="box-title">Payment Plan PP{{ $payment_plan->id }}</h5>
 			</div>
 			<!-- /.box-header -->
 			<div class="box-body">
 			  <div class="row">
 				<div class="col">
-  					<form method="post" action="{{ route('store-payment-plan') }}" enctype="multipart/form-data" >
+  					<form method="post" action="{{ route('update-balance') }}" enctype="multipart/form-data" >
 		 			@csrf
-		 			
+		 			<input type="hidden" name="id" value="{{ $payment_plan->id }}">
 			 			<div class="box-header with-border">
-				  			<h4 class="box-title" style="text-decoration: underline;">Create Payment Plan </h4>
+				  			<h4 class="box-title" style="text-decoration: underline;">Add Installment </h4>
 						</div>
 					 	<div class="row">
-							<div class="col-12">	
-								<div class="row"> <!-- start 1st row  -->
+							<div class="col-md-6">
+	 									<div class="form-group">
+
+											<div class="form-group">
+												<h5>Installment Amount:  <span class="text-danger">*</span></h5>
+												<div class="controls">
+												<input type="text" name="installment" class="form-control" required="" value="{{ $payment_plan->installment }}">
+											     @error('installment') 
+												 <span class="text-danger">{{ $message }}</span>
+												 @enderror
+									 	  		</div>
+		 									</div>
+				
+										</div>
+							</div> <!-- end col md 4 -->
 
 									<div class="col-md-6">
 	 									<div class="form-group">
 
 											<div class="form-group">
-												<h5>Payment Status: <span class="text-danger">*</span></h5>
+												<h5>Next Due Date: <span class="text-danger">*</span></h5>
 												<div class="controls">
-													<select name="customer_id" class="form-control" required="" >
-														@if($customer->status == 0)
-														<option value="" selected="" disabled="">Active</option>
-														@else
-														<option value="" selected="" disabled="">Active</option>
-														@endif
-											 			<option value="1">Payment Done</option>	
-											 			<option value="0">Payment Plan Still Active</option>	
-														
-													</select>
-												 @error('customer_id') 
+												<input type="date" name="due_date" class="form-control" required="" value="{{ $payment_plan->due_date }}">
+											     @error('due_date') 
 												 <span class="text-danger">{{ $message }}</span>
-												 @enderror 
-												 </div>
+												 @enderror
+									 	  		</div>
 		 									</div>
 				
 										</div>
-									</div> <!-- end col md 4 -->
-
-									
-			
-								</div> <!-- end 1st row  -->
-								<br>
-								
-								
-								
-								<br>
-								
+							</div> <!-- end col md 4 -->
 						</div>
-						<br>
-
+					
 						 
 						<div class="text-xs-right">
-							<input type="submit" class="btn btn-rounded btn-primary mb-5" value="Create Payment Plan">
+							<input type="submit" class="btn btn-rounded btn-primary mb-5" value="Add Installment">
 						</div>
 					</form>
 

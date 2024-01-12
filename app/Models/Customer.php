@@ -22,4 +22,9 @@ public function onetimePurchases()
     return $this->hasMany(OneTimePurchase::class);
 }
 
+public function installments()
+{
+    return $this->hasMany(Installment::class);
+}
+
 }

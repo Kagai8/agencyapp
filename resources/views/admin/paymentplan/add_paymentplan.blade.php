@@ -93,8 +93,8 @@
 											<div class="form-group">
 												<h5>Installment Amount:  <span class="text-danger">*</span></h5>
 												<div class="controls">
-												<input type="text" name="amount" class="form-control" required="">
-											     @error('amount') 
+												<input type="text" name="installment" class="form-control" required="">
+											     @error('installment') 
 												 <span class="text-danger">{{ $message }}</span>
 												 @enderror
 									 	  		</div>
