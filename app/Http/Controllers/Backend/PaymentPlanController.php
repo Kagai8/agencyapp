@@ -58,7 +58,7 @@ class PaymentPlanController extends Controller
         $customer->paymentPlans()->save($paymentPlan);
 
         // If the plan is approved and duration is less than or equal to 3 months, calculate and store commission
-        if ($paymentPlan->approval == 0 && $paymentPlan->months <= 3) {
+        if ($paymentPlan->approval == 1 && $paymentPlan->months <= 3) {
             $commission = new Commission([
                 'commission' => $commissionAmount,
                 'payment_plan_id' => $paymentPlan->id,
