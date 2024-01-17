@@ -11,16 +11,16 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
+            background-color: #ffffff;
         }
 
         .container {
-            margin-top: 50px;
-            margin-bottom: 50px;
+            margin-top: 10px;
+            margin-bottom: 10px;
             background-color: #fff;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            
         }
 
         .header {
@@ -47,6 +47,35 @@
             width: 100%;
             display: table;
             margin-bottom: 20px;
+        }
+
+        .bank-details {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .bank-details h2 {
+            color: #57B223;
+            border-bottom: 2px solid #57B223;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .bank-details .row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .bank-details .row div {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
         }
 
         .row {
@@ -77,7 +106,7 @@
         }
 
         .earnings-deductions-table th {
-            background-color: #1a73d3;
+            background-color: #57B223;
             color: white;
         }
 
@@ -88,7 +117,7 @@
         }
 
         .net-pay {
-            background-color: #1a73d3;
+            background-color: #57B223;
             color: white;
             padding: 10px;
             border-radius: 5px;
@@ -98,23 +127,73 @@
             margin-top: 20px;
             text-align: center;
         }
+
+        .employee-details {
+        border: 1px solid #000; /* Add a border around the entire employee details */
+        padding: 10px; /* Optional: Add some padding for better appearance */
+    }
+
+    .employee-details .row {
+        border-bottom: 1px solid #ccc; /* Add a bottom border to each row */
+        padding: 5px 0; /* Optional: Add some vertical padding for better appearance */
+    }
+
+    .employee-details .row:last-child {
+        border-bottom: none; /* Remove bottom border for the last row */
+    }
+    .header-container {
+        border-bottom: 2px solid #000; /* Add a border at the bottom */
+        margin-bottom: 10px; /* Optional: Add some space below the border for better appearance */
+        overflow: hidden; /* Clear the float if any child elements use float */
+    }
+
+    .header-container h2 {
+         /* Make the heading inline-block to avoid full width */
+        display: block; /* Make the heading a block-level element to take full width */
+        background-color: #fff; /* Optional: Set background color to match the parent background */
+        padding-right: 20px; /* Optional: Add some space to the right of the heading for better appearance */
+        margin-right: 20px; Optional: Add some space to the right of the heading for better appearance */
+    }
     </style>
 </head>
 
 <body>
+    <div class="logo-container">
+            <img src="data:image/jpeg;base64,{{ base64_encode(file_get_contents(public_path('logo/logobilabg.png'))) }}" alt="" class="logo" style="width: 200px;">
 
+        </div>
     <div class="container">
-    	 <div class="logo-container">
-            <img src="" alt="" class="logo">
-        </div>
-        <div class="large-header text-center">
-            <h1>Payslip for {{ now()->format('F Y') }}</h1>
-        </div>
-        <div class="header">
+        <img src="data:image/jpeg;base64,{{ base64_encode(file_get_contents(public_path($employee->employee_image))) }}" alt="Your Image" style="width: 100px; margin-right: 10px;">
+        <div class="large-header text-center" style="background-color: #ffffff;">
 
-            <span>Working Branch: Kitale</span>
+            <h2 style="text-align: right">Payslip for {{ now()->format('F Y') }}</h2>
+            <h1 style="text-align: right">{{ $employee->employee_name }}</h1>
         </div>
+        
+
+
+
         <div class="employee-details">
+            <div >
+                    <h2 >Employee and Bank Details</h2>
+            </div>
+            <div class="row" >
+                <div style="border: 1px solid #ddd; padding: 10px; border-radius: 5px;">
+                    <span class="fw-bolder">Bank Name:</span>
+                    <small class="ms-3">{{ $employee->employee_bank_name }}</small>
+                </div>
+                <div style="border: 1px solid #ddd; padding: 10px; border-radius: 5px;">
+                    <span class="fw-bolder">Employee Acc. No:</span>
+                    <small class="ms-3">{{ $employee->employee_bank_acc_no }}</small>
+                </div>
+            </div>
+            <div class="row">
+                <div style="border: 1px solid #ddd; padding: 10px; border-radius: 5px;">
+                    <span class="fw-bolder">Bank Branch Name:</span>
+                    <small class="ms-3">{{ $employee->employee_bank_branch }}</small>
+                </div>
+                
+            </div><br><br>
             <div class="row">
                 <div>
                     <span class="fw-bolder">Employee Code:</span>
@@ -176,6 +255,8 @@
                 </div>
             </div>
         </div>
+
+     
         <table class="earnings-deductions-table">
             <thead class="bg-dark text-white">
                 <tr>
@@ -200,7 +281,7 @@
                 </tr>
                 <tr>
                     <th scope="row">Commission:</th>
-                    <td>KES {{ $employee->employee_commission }}</td>
+                    <td>KES {{ $employee->employee_comission }}</td>
                     <th scope="row">NHIF:</th>
                     <td>KES {{ $employee->employee_nhif }}</td>
                 </tr>
@@ -243,8 +324,8 @@
             </tbody>
         </table>
         <div class="footer">
-            <div class="net-pay">
-                <span class="fw-bold">NET PAY: KES {{$netPay}}</span>
+            <div class="net-pay" style="text-align: right">
+                <span class="fw-bold" >NET PAY: KES {{$netPay}}</span>
             </div>
         </div>
         <div class="signature">
@@ -253,8 +334,7 @@
                         <p>Signature: ________________________</p>
                         <p>Signed by: ________________________</p>
             </div>
-            <span class="fw-bolder">Green Line Insurance Agency</span><br>
-            
+            <span class="fw-bolder">Green Line Insurance Agency</span><br>            
         </div>
     </div>
 

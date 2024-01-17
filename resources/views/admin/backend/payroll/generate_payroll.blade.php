@@ -44,8 +44,9 @@
 											 <td> {{ $item->employee_gender }}</td>
 
 
-											<td width="30%">
-												 <a href="{{ route('generate-payslip', $item->id) }}" class="btn btn-success btn-flat mb-5" title="employee Details Data"></i> Generate PaySlip</a>
+											<td width="30%" >
+												 <a href="{{ route('generate-payslip', $item->id) }}" class="btn btn-info mb-2" title="Generate PaySlip"><i class="fa fa-pencil"></i> Generate PaySlip</a><br>
+												 <a href="{{ route('employee-edit-days',$item->id) }}" class="btn btn-warning" title="Edit Data"><i class="fa fa-pencil"></i> Work Days</a>
 											</td>
 																 
 										 </tr>

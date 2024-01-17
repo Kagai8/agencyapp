@@ -34,7 +34,6 @@ Route::group(['middleware' => ['auth', 'check.role:Admin,Manager,Chairman,User']
     Route::get('/admin/customer/create/account', [CustomerController::class, 'CreateCustomerAccount'])->name('create-customer-account');
     Route::post('/admin/customer/store/account', [CustomerController::class, 'StoreCustomerDetails'])->name('store-customer-details');
     Route::get('/admin/customer/manage/account', [CustomerController::class, 'ManageCustomerAccount'])->name('manage-customer-account');
-
     Route::get('/admin/customer/edit/account/{id}', [CustomerController::class, 'EditCustomerDetails'])->name('edit-customer-details');
     Route::post('/admin/customer/update/account', [CustomerController::class, 'UpdateCustomerDetails'])->name('update-customer-details');
     Route::get('/admin/customer/delete/account/{id}', [CustomerController::class, 'DeleteCustomerDetails'])->name('delete-customer-details');
@@ -92,21 +91,22 @@ Route::group(['middleware' => ['auth', 'check.role:Admin,Manager,Chairman']], fu
     Route::get('/admin/user/delete/{id}', [UserController::class, 'DeleteUser'])->name('delete-user');
 
 
-//Employee Module
+    //Employee Module
     Route::get('/admin/dashboard', function () {
                 return view('dashboard');
             })->middleware(['auth', 'verified'])->name('dashboard');
-           Route::get('/admin/add/employee', [EmployeeController::class, 'EmployeeAdd'])->name('employee.add');
+    Route::get('/admin/add/employee', [EmployeeController::class, 'EmployeeAdd'])->name('employee.add');
     Route::get('/admin/manage/employee', [EmployeeController::class, 'EmployeeManage'])->name('manage-employee');
     Route::post('/admin/store/employee', [EmployeeController::class, 'EmployeeStore'])->name('employee-store');
     
     Route::post('/admin/update/employee', [EmployeeController::class, 'EmployeeUpdate'])->name('employee-update');
     Route::get('employee/delete/{id}', [EmployeeController::class, 'EmployeeDelete'])->name('employee.delete');
     Route::post('/admin/update/employee/image', [EmployeeController::class, 'EmployeeImageUpdate'])->name('update-employee-image');
-    Route::post('/admin/update/employee/days', [EmployeeController::class, 'EmployeeUpdateDays'])->name('employee-update-days');
     Route::get('/edit/employee/{id}', [EmployeeController::class, 'EmployeeEdit'])->name('employee.details');
     Route::get('/edit/employee/performance/{id}', [EmployeeController::class, 'EmployeePerformance'])->name('employee.performance');
 
+    Route::get('/edit/work/days/employee/{id}', [PayRollController::class, 'EmployeeEditWorkDays'])->name('employee-edit-days');
+    Route::post('/admin/update/employee/days', [PayRollController::class, 'EmployeeUpdateDays'])->name('employee-update-days');
     Route::get('/admin/generate/payroll', [PayRollController::class, 'EmployeeGeneratePayroll'])->name('generate-payroll');
     Route::get('/admin/payslip/{id}', [PayRollController::class, 'generatePayslip'])->name('generate-payslip');
 

@@ -44,7 +44,7 @@
 											 <td> {{ $item->employee_gender }}</td>
 
 
-											<td width="30%">
+											<td width="30%" >
 												 <a href="{{ route('employee.details',$item->id) }}" class="btn btn-primary" title="employee Details Data"><i class="fa fa-eye"></i> </a>
 
 												 <a href="{{ route('employee.details',$item->id) }}" class="btn btn-info" title="Edit Data"><i class="fa fa-pencil"></i> </a>

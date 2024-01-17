@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use App\Models\Employee;
 use App\Models\Payslip;
@@ -26,35 +27,55 @@ class PayRollController extends Controller
 
     }
 
-    
-    public function generatePayslip(Request $request, $id)
-    {
-        // Retrieve employee details
-        $employee = Employee::findOrFail($id);
+    public function EmployeeEditWorkDays($id){
+
+        $employees = Employee::findOrFail($id);
+        return view('admin.backend.employee.edit_work_days',compact('employees'));
+
+    }
+
+    public function EmployeeUpdateDays(Request $request){    
+
+        $employee_id = $request->id;
+
+        Employee::findOrFail($employee_id)->update([
+        'days_worked' => $request->days_worked,
+        
         
 
-        // Generate a unique filename based on First Name, Month, and Year
-        $filename = $employee->employee_name . '_' . now()->format('F_Y') . '.pdf';
+        
 
-        // Pass data to the view to include in the PDF
-        $data = ['employee' => $employee];
+        'updated_at' => Carbon::now(),   
 
-        // Generate PDF
-        $pdf = PDF::loadView('admin.backend.payroll.employee_payslip', $data);
+            ]);
+        $notification = array(
+            'message' => 'Employee Days Worked Updated Successfully',
+            'alert-type' => 'success'
+        );
 
-        // Save PDF to storage with the unique filename
-        $pdfPath = 'payslips/' . $filename;
-        $pdf->save(public_path($pdfPath));
+        return redirect()->route('generate-payroll')->with($notification);
 
-        // Save PDF path and missed days to payslips table
-        Payslip::create([
-            'employee_id' => $id,
-            'file_path' => $pdfPath,
-            
+    }
+
+    
+    public function generatePayslip($id)
+    {
+        // Fetch data for the receipt
+            // Fetch data for the receipt
+        $employee = Employee::findOrFail($id);
+
+        // Generate PDF using the 'your-receipt-view' Blade view and the fetched data
+        $pdf = PDF::loadView('admin.backend.payroll.employee_payslip', compact('employee'));
+
+        // Return the PDF as a response
+        return new Response($pdf->output(), 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="Receipt_PP' . $employee->id . '.pdf"',
         ]);
 
-        // Open the PDF in a new tab
-        return $pdf->stream($filename);
+        
+
+       
     }
 
 }
