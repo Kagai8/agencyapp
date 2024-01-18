@@ -17,6 +17,7 @@
 							<div class="box-header with-border">
 							  <h3 class="box-title">Payment Plans In Place(Approved) <span class="badge badge-pill badge-danger"> {{ count($payment_plans) }} </span></h3>
 							</div>
+							
 							<!-- /.box-header -->
 							<div class="box-body">
 								<div class="table-responsive">
@@ -26,7 +27,7 @@
 											<th>PaymentPlanID</th>
 											<th>Name</th>
 											<th>Premium </th>
-											<th>Discounted </th>
+											<th>Discounted Amount</th>
 											<th>Installments</th>
 											<th>Balance</th>
 											<th>Planned Months</th>
@@ -99,6 +100,21 @@
 	  
 	  </div>
   
+
+<script>
+    $(document).ready(function () {
+        $('#example1').DataTable({
+            buttons: ['excelHtml5', 'print']
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $('#excelBtn').on('click', function () {
+            $('#example1').DataTable().buttons('excelHtml5').trigger();
+        });
+    });
+</script>
 
 
 
