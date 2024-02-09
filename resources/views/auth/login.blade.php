@@ -36,7 +36,7 @@
                     <div class="login-wrap p-4 p-lg-5">
                             <div >
                                 <div class="col-md-6 ">
-                                    <img src="{{ asset('logo/logobilabg.png') }}" alt="" style="width: 300px; height: auto;">
+                                    <img src="{{ asset('logo/enhancedlogo.jpg') }}" alt="" style="width: 300px; height: auto;">
 
                                 </div>
                             </div>

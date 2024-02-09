@@ -91,6 +91,7 @@
 											<th>Payment Plan ID</th>
 											<th>Gross Amount</th>
 											<th>Net Amount</th>
+											<th>Commission</th>
 											<th>Date </th>
 											@if(auth()->check()&& auth()->user()->role->name === 'Admin' || auth()->user()->role->name === 'Chairman' || auth()->user()->role->name === 'Manager')
 											<th>Initiated By </th>
