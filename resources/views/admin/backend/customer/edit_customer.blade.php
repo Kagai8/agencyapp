@@ -100,21 +100,7 @@
 								
 								<div class="row"> <!-- start 5th row  -->
 
-									<div class="col-md-6">
-									 	<div class="form-group">
-											<h5>Customer's Gender <span class="text-danger">*</span></h5>
-											<div class="controls">
-												<select name="customer_gender" class="form-control"  >
-													<option value="{{$customer->customer_gender}}" selected="">{{$customer->customer_gender}}</option>
-													<option value="Male">Male</option>
-													<option value="Female">Female</option>	
-												</select>
-												@error('customer_gender') 
-											 <span class="text-danger">{{ $message }}</span>
-											 @enderror 
-											 </div>
-										</div>
-									</div> <!-- end col md 4 -->
+									
 
 									<div class="col-md-6">
 	 									<div class="form-group">
@@ -206,40 +192,7 @@
 						</div>
 					</section>
 					<!--Salary Section-->
-					<section class="content">
-			 			<div class="box-header with-border">
-				  			<h4 class="box-title" style="text-decoration: underline;">3.Discount Edit</h4>
-						</div>
-					 	<div class="row">
-							<div class="col-12">	
-								
-								<div class="row"> <!-- start 2nd row  -->
-
-									<div class="col-md-6">
-	 									<div class="form-group">
-
-											<div class="form-group">
-												<h5>Discount:  <span class="text-danger">*</span></h5>
-												<div class="controls">
-												<input type="text" name="customer_discount" class="form-control" value="{{$customer->customer_discount}}">
-											     @error('customer_discount') 
-												 <span class="text-danger">{{ $message }}</span>
-												 @enderror
-									 	  		</div>
-		 									</div>
-				
-										</div>
-									</div> <!-- end col md 4 -->
-
-									
-			
-								</div> <!-- end 2nd row  -->
-
-								
-								
-								
-						</div>
-					</section>
+					
 					
 
 						 

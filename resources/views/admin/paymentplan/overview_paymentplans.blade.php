@@ -26,13 +26,13 @@
 										<tr>
 											<th>PaymentPlanID</th>
 											<th>Name</th>
-											<th>Premium </th>
-											<th>Discounted Amount</th>
-											<th>Installments</th>
+											<th>Gross Amount </th>
+											<th>Net Amount</th>
+											
 											<th>Balance</th>
 											<th>Planned Months</th>
 											<th>Months Left</th>
-											<th>Due Date </th>
+											
 											<th>Commission Credited </th>
 											<th>Created </th>
 											<th>Updated </th>
@@ -52,12 +52,12 @@
 											 <td>PP{{ $item->id }}</td>
 											 <td>{{ $item->customer_name }}</td>
 											 <td>{{ $item->original_amount }}</td>
-											 <td>{{ $item->discounted_amount }} </td>
-											 <td> {{ $item->installment }}</td>
+											 <td>{{ $item->net_amount }} </td>
+											 
 											 <td> {{ $item->balance }}</td>
 											 <td> {{ $item->months }}</td>
 											 <td> {{ $item->months_left }}</td>
-											 <td> {{ $item->due_date }}</td>
+											 
 											 <td> Yes</td>
 											 <td> {{ $item->created_at }}</td>
 											 <td> {{ $item->updated_at }}</td>

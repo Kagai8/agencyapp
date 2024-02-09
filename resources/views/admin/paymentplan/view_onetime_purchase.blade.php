@@ -15,7 +15,7 @@
 
 						 <div class="box">
 							<div class="box-header with-border">
-							  <h3 class="box-title">One Time Purchases <span class="badge badge-pill badge-danger"> {{ count($onetime_purchases) }} </span></h3>
+							  <h3 class="box-title">One Off Purchases <span class="badge badge-pill badge-danger"> {{ count($onetime_purchases) }} </span></h3>
 							</div>
 							<!-- /.box-header -->
 							<div class="box-body">
@@ -25,7 +25,8 @@
 										<tr>
 											<th>One Time Purchase ID</th>
 											<th>Name </th>
-											<th>Premium </th>
+											<th>Gross Amount </th>
+											<th>Net Amount </th>
 											@if(auth()->check()&& auth()->user()->role->name === 'Admin' || auth()->user()->role->name === 'Chairman' || auth()->user()->role->name === 'Manager')
 											<th>Created By </th>
 											@endif
@@ -42,13 +43,14 @@
 											 <td>OTP{{ $item->id }}</td>
 											 <td>{{ $item->customer_name }}</td>
 											 <td>{{ $item->original_amount }} </td>
+											 <td>{{ $item->net_amount }} </td>
 
 											 @if(auth()->check()&& auth()->user()->role->name === 'Admin' || auth()->user()->role->name === 'Chairman' || auth()->user()->role->name === 'Manager')
 											 <td>{{ $item->created_by }} </td>
 											 @endif
 
 											 <td> {{ \Carbon\Carbon::parse($item->created_at )->format('d F Y')}}</td>
-											 <td width="30%">
+											 <td width="10%">
 												 <a href="{{ route('test.details',$item->id) }}" class="btn btn-primary" title="Print"><i class="fa fa-print"></i> </a>
 											</td>
 											 

@@ -37,6 +37,7 @@ Route::group(['middleware' => ['auth', 'check.role:Admin,Manager,Chairman,User']
     Route::get('/admin/customer/edit/account/{id}', [CustomerController::class, 'EditCustomerDetails'])->name('edit-customer-details');
     Route::post('/admin/customer/update/account', [CustomerController::class, 'UpdateCustomerDetails'])->name('update-customer-details');
     Route::get('/admin/customer/delete/account/{id}', [CustomerController::class, 'DeleteCustomerDetails'])->name('delete-customer-details');
+    Route::get('/admin/customer/details/{id}', [CustomerController::class, 'CustomerAccountDetails'])->name('customer-account');
 
 
     //One Time Purchase
@@ -60,6 +61,7 @@ Route::group(['middleware' => ['auth', 'check.role:Admin,Manager,Chairman,User']
 
     Route::get('paymentplan/edit/payment/balance/{id}', [PaymentPlanController::class, 'EditPaymentBalance'])->name('edit-balance');
     Route::post('paymentplan/update/payment/balance', [PaymentPlanController::class, 'UpdatePaymentPlanBalance'])->name('update-balance');
+     Route::get('paymentplan/details/{id}', [PaymentPlanController::class, 'PaymentPlanDetails'])->name('paymentplan-details');
     
     Route::get('/admin/check/commission', [PaymentPlanController::class, 'ViewCommission'])->name('commission-check');
     Route::get('/invoice/payment/{id}', [PaymentPlanController::class, 'Invoice'])->name('invoice.payment');
@@ -73,6 +75,9 @@ Route::group(['middleware' => ['auth', 'check.role:Admin,Manager,Chairman,User']
     Route::get('/receipt/installment/generate/{id}', [PaymentPlanController::class, 'GenerateInstallmentReceipt'])->name('generate-installment-receipt');
     Route::get('/view/installment/history/{id}', [PaymentPlanController::class, 'ViewInstallment'])->name('installment-history');
     Route::get('/receipt/installments/paymentplan/{id}', [PaymentPlanController::class, 'GeneratePaymentPlanInstallmentsReceipt'])->name('generate-pdf-history');
+
+    Route::get('/edit/installment/details/{id}', [PaymentPlanController::class, 'EditInstallmentDetails'])->name('edit-installment-details');
+    Route::post('/update/installment/details', [PaymentPlanController::class, 'UpdateInstallmentDetails'])->name('update-installment-details');
 
     
 

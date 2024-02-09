@@ -26,9 +26,12 @@
 						</div>
 					 	<div class="row">
 							<div class="col-12">	
+								<div class="section-divider">
+					                <h5>1. Customer and Premium Information</h5>
+					            </div>
 								<div class="row"> <!-- start 1st row  -->
 
-									<div class="col-md-6">
+									<div class="col-md-12">
 	 									<div class="form-group">
 
 											<div class="form-group">
@@ -49,10 +52,16 @@
 										</div>
 									</div> <!-- end col md 4 -->
 
+									
+								</div> <!-- end 1st row  -->
+								<br>
+								<div class="row"> <!-- start 1st row  -->
+
 									<div class="col-md-6">
+
 	 									<div class="form-group">
 											<div class="form-group">
-												<h5>Premium:  <span class="text-danger">*</span></h5>
+												<h5>Gross Total:  <span class="text-danger">*</span></h5>
 												<div class="controls">
 												<input type="text" name="original_amount" class="form-control" required="">
 											     @error('original_amount') 
@@ -62,19 +71,17 @@
 		 									</div>
 				
 										</div>
+				
+										
 									</div> <!-- end col md 4 -->
-			
-								</div> <!-- end 1st row  -->
-								<br>
-								<div class="row"> <!-- start 1st row  -->
 
 									<div class="col-md-6">
 	 									<div class="form-group">
 											<div class="form-group">
-												<h5>Deposit Amount:  <span class="text-danger">*</span></h5>
+												<h5>Net Total After Levy:  <span class="text-danger">*</span></h5>
 												<div class="controls">
-												<input type="text" name="deposit_amount" class="form-control" required="">
-											     @error('deposit_amount') 
+												<input type="text" name="net_amount" class="form-control" required="">
+											     @error('net_amount') 
 												 <span class="text-danger">{{ $message }}</span>
 												 @enderror
 									 	  		</div>
@@ -85,24 +92,11 @@
 			
 								</div> <!-- end 1st row  -->
 								<br>
+								
+							
 								<div class="row"> <!-- start 2nd row  -->
 
-									<div class="col-md-6">
-	 									<div class="form-group">
-
-											<div class="form-group">
-												<h5>Installment Amount:  <span class="text-danger">*</span></h5>
-												<div class="controls">
-												<input type="text" name="installment" class="form-control" required="">
-											     @error('installment') 
-												 <span class="text-danger">{{ $message }}</span>
-												 @enderror
-									 	  		</div>
-		 									</div>
-				
-										</div>
-									</div> <!-- end col md 4 -->
-
+						
 									<div class="col-md-6">
 	 									<div class="form-group">
 
@@ -118,10 +112,6 @@
 				
 										</div>
 									</div> <!-- end col md 4 -->
-			
-								</div> <!-- end 2nd row  -->
-								<br>
-								<div class="row"> <!-- start 2nd row  -->
 
 									<div class="col-md-6">
 	 									<div class="form-group">
@@ -139,24 +129,47 @@
 										</div>
 									</div> <!-- end col md 4 -->
 
-									<div class="col-md-6">
-	 									<div class="form-group">
-
-											<div class="form-group">
-												<h5>Due Date: <span class="text-danger">*</span></h5>
-												<div class="controls">
-												<input type="date" name="due_date" class="form-control" required="">
-											     @error('due_date') 
-												 <span class="text-danger">{{ $message }}</span>
-												 @enderror
-									 	  		</div>
-		 									</div>
-				
-										</div>
-									</div> <!-- end col md 4 -->
-			
 								</div> <!-- end 2nd row  -->
+								<br>
+
 								
+								<div class="row">
+	                                <div class="col-12">
+	                                	<div class="section-divider">
+					                <h5>2. Installment Information</h5>
+					            </div>
+	                                    <table class="table" id="installments_table">
+	                                        <thead>
+					                            <tr>
+					                                <th><h5>Installment Amount</h5></th>
+					                                <th><h5>Current/Due Date</h5></th>
+					                                <th><h5>Payment Option</h5></th>
+					                                <th><h5>Add/Remove</h5></th>
+					                            </tr>
+					                        </thead>
+	                                        <tbody>
+	                                            <tr class="installment-row">
+	                                                <td><input type="text" name="installment[]" class="form-control"
+	                                                        placeholder="Installment Amount" required></td>
+	                                                <td><input type="date" name="due_date[]" class="form-control"
+	                                                        required></td>
+	                                                <td>
+													    <select name="payment_option[]" class="form-control" required>
+													        <option value="" selected disabled>Select Payment Option</option>
+													        <option value="Cash">Cash</option>
+													        <option value="Mpesa">Mpesa</option>
+													        <option value="Cheque">Cheque</option>
+													        
+													        <!-- Add more options as needed -->
+													    </select>
+													</td>
+	                                                <td><button type="button" class="btn btn-success add-installment">+</button>
+	                                                </td>
+	                                            </tr>
+	                                        </tbody>
+	                                    </table>
+	                                </div>
+                            	</div>
 								<br>
 								
 						</div>
@@ -272,6 +285,88 @@
   </script>
 
 
+<script type="text/javascript">
+    $(document).ready(function(){      
+      var postURL = "<?php echo url('addmore'); ?>";
+      var i=1;  
 
+
+      $('#add').click(function(){  
+           i++;  
+           $('#dynamic_field').append('<tr id="row'+i+'" class="dynamic-added"><td><input type="text" name="name[]" placeholder="Enter your Name" class="form-control name_list" /></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td></tr>');  
+      });  
+
+
+      $(document).on('click', '.btn_remove', function(){  
+           var button_id = $(this).attr("id");   
+           $('#row'+button_id+'').remove();  
+      });  
+
+
+      $.ajaxSetup({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+      });
+$('#submit').click(function(){            
+           $.ajax({  
+                url:postURL,  
+                method:"POST",  
+                data:$('#add_name').serialize(),
+                type:'json',
+                success:function(data)  
+                {
+                    if(data.error){
+                        printErrorMsg(data.error);
+                    }else{
+                        i=1;
+                        $('.dynamic-added').remove();
+                        $('#add_name')[0].reset();
+                        $(".print-success-msg").find("ul").html('');
+                        $(".print-success-msg").css('display','block');
+                        $(".print-error-msg").css('display','none');
+                        $(".print-success-msg").find("ul").append('<li>Record Inserted Successfully.</li>');
+                    }
+                }  
+           });  
+      });  
+function printErrorMsg (msg) {
+         $(".print-error-msg").find("ul").html('');
+         $(".print-error-msg").css('display','block');
+         $(".print-success-msg").css('display','none');
+         $.each( msg, function( key, value ) {
+            $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+         });
+      }
+    });  
+</script>
+<!-- Add this script at the end of your form view -->
+<script>
+    $(document).ready(function() {
+        // Add installment row
+        $('.add-installment').click(function() {
+            var html = '<tr class="installment-row">' +
+                '<td><input type="text" name="installment[]" class="form-control" placeholder="Installment Amount" required></td>' +
+                '<td><input type="date" name="due_date[]" class="form-control" required></td>' +
+                '<td>' +
+                '<select name="payment_option[]" class="form-control" required>' +
+                '<option value="" selected disabled>Select Payment Option</option>' +
+                '<option value="Cash">Cash</option>' +
+                '<option value="Mpesa">Mpesa</option>' +
+                '<option value="Cheque">Cheque</option>' +
+                '<option value="Bank Transfer">Bank Transfer</option>' +
+                '</select>' +
+                '</td>' +
+                '<td><button type="button" class="btn btn-danger remove-installment">-</button></td>' +
+                '</tr>';
+            $('#installments_table tbody').append(html);
+        });
+
+        // Remove installment row
+        $(document).on('click', '.remove-installment', function() {
+            $(this).closest('tr').remove();
+        });
+    });
+</script>
 
 @endsection

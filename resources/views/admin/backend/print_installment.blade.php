@@ -82,7 +82,7 @@
 
         #invoice h1 {
           color: #0087C3;
-          font-size: 2.4em;
+          font-size: 1.4em;
           line-height: 1em;
           font-weight: normal;
           margin: 0  0 10px 0;
@@ -184,7 +184,7 @@
         }
 
         #thanks{
-          font-size: 2em;
+          font-size: 1.2em;
           margin-bottom: 50px;
         }
 
@@ -194,7 +194,7 @@
         }
 
         #notices .notice {
-          font-size: 1.2em;
+          font-size: 1em;
         }
 
         footer {
@@ -214,7 +214,7 @@
   <body>
     <header class="clearfix">
       <div id="logo">
-        <img src="data:image/jpeg;base64,{{ base64_encode(file_get_contents(public_path('logo/logobilabg.png'))) }}">
+        <img src="data:image/jpeg;base64,{{ base64_encode(file_get_contents(public_path('logo/enhancedlogo.jpg'))) }}" height="100">
       </div>
       <div id="company">
         <h2 class="name">Greenline Insurance Agencies</h2>
@@ -231,13 +231,18 @@
         <div id="client">
           <div class="to">RECEIPT FOR:</div>
           <h2 class="name">{{ $installment->customer->customer_name }}</h2>
+
           <div class="address">{{ $installment->customer->customer_phone_no }}</div>
           <div class="email"><a href="mailto:john@example.com">{{$installment->customer->customer_email }}</a></div>
+
         </div>
         <div id="invoice">
           <h1>RECEIPT FOR IM{{$installment->id }}</h1>
           <div class="date">Date of Receipt: {{ \Carbon\Carbon::now()->format('d F Y H:i:s') }}</div>
-          
+          <div class="address">Payment Mode: {{ $installment->payment_option }}</div>
+          @if($installment->transaction_code)
+          <div class="address">Transaction Code: {{ $installment->transaction_code }}</div>
+          @endif
         </div>
       </div>
       <table border="0" cellspacing="0" cellpadding="0">
@@ -247,7 +252,7 @@
             <th class="no">#</th>
             <th> PAPYMENT PLAN</th>
             <th class="desc">INSTALLMENT</th>
-
+            
             <th class="qty">GENERATED AT</th>
             <th class="total">TOTAL</th>
           </tr>
@@ -257,6 +262,7 @@
             <td class="no">01</td>
             <td>PP{{$installment->payment_plan_id}}</td>
             <td class="desc">KSH {{$installment->installment}}</td>
+            
             <td class="qty">{{\Carbon\Carbon::parse($installment->created_at )->format('d F Y')}}</td>
             <td class="total">KSH {{ $installment->installment }}</td>
           </tr>
@@ -272,6 +278,10 @@
           </tr>
         </tfoot>
       </table>
+      <div id="thanks"></div>
+      <div id="thanks"></div>
+      <br>
+      <br>
       <div id="thanks">Served By: {{ auth()->user()->name }}</div>
       <div id="notices">
         <div></div>

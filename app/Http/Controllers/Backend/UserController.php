@@ -36,17 +36,7 @@ class UserController extends Controller
      */
     public function StoreUser(Request $request)
     {
-         $request->validate([
-                'name' => 'required|string|max:255',
-                'email' => [
-                    'required',
-                    'email',
-                    'max:255',
-                    Rule::unique('users', 'email'), // Ensure the email is unique in the 'users' table
-                ],
-                'role_id' => 'required|numeric|in:1,2,3,4', // Validate the role_id
-                'password' => 'required|string|min:8', // Add any password validation rules you need
-            ]);
+         
         
         $user_id = User::insertGetId([
 

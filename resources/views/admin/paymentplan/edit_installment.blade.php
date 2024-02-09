@@ -12,122 +12,68 @@
 
 		<div class="box">
 			<div class="box-header with-border">
-			  <h5 class="box-title">One Off Purchase Generation </h5>
+			  <h5 class="box-title">Installment IMT{{ $installment->id }}</h5>
 			</div>
 			<!-- /.box-header -->
 			<div class="box-body">
 			  <div class="row">
 				<div class="col">
-  					<form method="post" action="{{ route('store-onetime-purchase') }}" enctype="multipart/form-data" >
+  					<form method="post" action="{{ route('update-installment-details', ['id' => $installment->id]) }}" enctype="multipart/form-data">
 		 			@csrf
-		 			
+		 			<input type="hidden" name="id" value="{{ $installment->id }}">
 			 			<div class="box-header with-border">
-				  			<h4 class="box-title" style="text-decoration: underline;">Create OneTime Purchase </h4>
+				  			<h4 class="box-title" style="text-decoration: underline;">Add Installment </h4>
 						</div>
 					 	<div class="row">
-							<div class="col-12">	
-								<div class="row"> <!-- start 1st row  -->
-
-									<div class="col-md-6">
+							<div class="col-md-6">
 	 									<div class="form-group">
 
 											<div class="form-group">
-												<h5>Customer Name: <span class="text-danger">*</span></h5>
+												<h5>Installment Amount:  <span class="text-danger">*</span></h5>
 												<div class="controls">
-													<select name="customer_id" class="form-control" required="" >
-														<option value="" selected="" disabled="">Select Customer Name:</option>
-														@foreach($customers as $customer)
-											 			<option value="{{ $customer->id }}">{{ $customer->customer_name }}</option>	
-														@endforeach
-													</select>
-												 @error('customer_id') 
-												 <span class="text-danger">{{ $message }}</span>
-												 @enderror 
-												 </div>
-		 									</div>
-				
-										</div>
-									</div> <!-- end col md 4 -->
-
-									<div class="col-md-6">
-	 									<div class="form-group">
-											<div class="form-group">
-												<h5>Gross Amount:  <span class="text-danger">*</span></h5>
-												<div class="controls">
-												<input type="text" name="original_amount" class="form-control" required="">
-											     @error('original_amount') 
+												
+                        						<input type="text" class="form-control" id="installmentAmount" name="installment" required value="{{$installment->installment}}">
+											     @error('installment') 
 												 <span class="text-danger">{{ $message }}</span>
 												 @enderror
 									 	  		</div>
 		 									</div>
 				
 										</div>
-									</div> <!-- end col md 4 -->
-			
-								</div> <!-- end 1st row  -->
-								
-								
-							
-								<div class="row"> <!-- start 2nd row  -->
-									<div class="col-md-6">
-	 									<div class="form-group">
-											<div class="form-group">
-												<h5>Net Amount:  <span class="text-danger">*</span></h5>
-												<div class="controls">
-												<input type="text" name="net_amount" class="form-control" required="">
-											     @error('net_amount') 
-												 <span class="text-danger">{{ $message }}</span>
-												 @enderror
-									 	  		</div>
-		 									</div>
-				
-										</div>
-									</div> <!-- end col md 4 -->
+							</div> <!-- end col md 4 -->
 
 									<div class="col-md-6">
 	 									<div class="form-group">
 
 											<div class="form-group">
-												<h5>Commission(Percentage): <span class="text-danger">*</span></h5>
-												<div class="controls">
-												<input type="text" name="commission_premium" class="form-control" required="">
-											     @error('commission_premium') 
-												 <span class="text-danger">{{ $message }}</span>
-												 @enderror
-									 	  		</div>
-		 									</div>
-				
-										</div>
-									</div> <!-- end col md 4 -->
-			
-								</div> <!-- end 2nd row  -->
-								<div class="row"> <!-- start 2nd row  -->
-									<div class="col-md-6">
-	 									<div class="form-group">
 												<h5>Payment Method: <span class="text-danger">*</span></h5>
 												<div class="controls">
-													<select name="payment_option" class="form-control" required>
-													        <option value="" selected disabled>Select Payment Option</option>
-													        <option value="Cash">Cash</option>
-													        <option value="Mpesa">Mpesa</option>
-													        <option value="Cheque">Cheque</option>
-													        
-													        <!-- Add more options as needed -->
-													    </select>
-												 @error('payment_option') 
+												<select name="payment_option" class="form-control" required="" >
+														
+														  <option value="Mpesa" {{ $installment->payment_option === 'Mpesa' ? 'selected' : '' }}>Mpesa</option>
+												          <option value="Cash" {{ $installment->payment_option === 'Cash' ? 'selected' : '' }}>Cash</option>
+												          <option value="Cheque" {{ $installment->payment_option === 'Cheque' ? 'selected' : '' }}>Cheque</option>	
+																	
+														
+													</select>
+											     @error('payment_option') 
 												 <span class="text-danger">{{ $message }}</span>
-												 @enderror 
-												 </div>
+												 @enderror
+									 	  		</div>
 		 									</div>
-									</div> <!-- end col md 4 -->
-
-									<div class="col-md-6">
+				
+										</div>
+							</div> <!-- end col md 4 -->
+						</div>
+						<div class="row">
+							<div class="col-md-6">
 	 									<div class="form-group">
 
 											<div class="form-group">
-												<h5>Transaction Code(If Applicable): </h5>
+												<h5>Transaction Code:  <span class="text-danger">*</span></h5>
 												<div class="controls">
-												<input type="text" name="transaction_code" class="form-control" >
+												
+                        						<input type="text" class="form-control" id="transactionCodes" name="transaction_code">
 											     @error('transaction_code') 
 												 <span class="text-danger">{{ $message }}</span>
 												 @enderror
@@ -135,20 +81,35 @@
 		 									</div>
 				
 										</div>
-									</div> <!-- end col md 4 -->
-			
-								</div> <!-- end 2nd row  -->
-								<br>
-								
-								
-								<br>
-								
-						</div>
-						<br>
+							</div> <!-- end col md 4 -->
 
+									<div class="col-md-6">
+	 									<div class="form-group">
+
+											<div class="form-group">
+												<h5>Status: <span class="text-danger">*</span></h5>
+												<div class="controls">
+												<select name="status" class="form-control" required="" >
+														
+														  		<option value="1" {{ $installment->payment_option == 1 ? 'selected' : '' }}>Paid</option>
+												          <option value="0" {{ $installment->payment_option == 2 ? 'selected' : '' }}>Unpaid</option>
+												          
+																	
+														
+													</select>
+											     @error('status') 
+												 <span class="text-danger">{{ $message }}</span>
+												 @enderror
+									 	  		</div>
+		 									</div>
+				
+										</div>
+							</div> <!-- end col md 4 -->
+						</div>
+					
 						 
 						<div class="text-xs-right">
-							<input type="submit" class="btn btn-rounded btn-primary mb-5" value="Create One Off Purchase">
+							<input type="submit" class="btn btn-rounded btn-primary mb-5" value="Add Installment">
 						</div>
 					</form>
 

@@ -18,8 +18,8 @@
 			<div class="box-body">
 			  <div class="row">
 				<div class="col">
-  					<form method="post" action="{{ route('store-user') }}" enctype="multipart/form-data" >
-		 			@csrf
+  					<form method="post" action="{{ route('store-user') }}" enctype="multipart/form-data" >@csrf
+		 			
 		 			
 			 			<div class="box-header with-border">
 				  			<h4 class="box-title" style="text-decoration: underline;">Add User Credentials </h4>
@@ -28,7 +28,7 @@
 							<div class="col-12">	
 								<div class="row"> <!-- start 1st row  -->
 
-									<div class="col-md-6">
+									<div class="col-md-12">
 	 									<div class="form-group">
 
 											<div class="form-group">

@@ -98,30 +98,13 @@
 								</div> <!-- end 2nd row  -->
 								
 								<div class="row"> <!-- start 5th row  -->
-
-									<div class="col-md-6">
-									 	<div class="form-group">
-											<h5>Customer's Gender <span class="text-danger">*</span></h5>
-											<div class="controls">
-												<select name="customer_gender" class="form-control" required="" >
-													<option value="" selected="">Select Gender</option>
-													<option value="Male">Male</option>
-													<option value="Female">Female</option>	
-												</select>
-												@error('customer_gender') 
-											 <span class="text-danger">{{ $message }}</span>
-											 @enderror 
-											 </div>
-										</div>
-									</div> <!-- end col md 4 -->
-
 									<div class="col-md-6">
 	 									<div class="form-group">
 
 											<div class="form-group">
-												<h5>Customer's National ID <span class="text-danger">*</span></h5>
+												<h5>Customer's National ID (If Applicable)</h5>
 												<div class="controls">
-												<input type="text" name="customer_national_id" class="form-control" required="">
+												<input type="text" name="customer_national_id" class="form-control" >
 											     @error('customer_national_id') 
 												 <span class="text-danger">{{ $message }}</span>
 												 @enderror
@@ -152,9 +135,9 @@
 	 									<div class="form-group">
 
 											<div class="form-group">
-												<h5>Contact Person's Full Name:  <span class="text-danger">*</span></h5>
+												<h5>Contact Person's Full Name(If Applicable): </h5>
 												<div class="controls">
-												<input type="text" name="customer_contact_person_name" class="form-control" required="">
+												<input type="text" name="customer_contact_person_name" class="form-control" >
 											     @error('customer_contact_person_name') 
 												 <span class="text-danger">{{ $message }}</span>
 												 @enderror
@@ -167,9 +150,9 @@
 									<div class="col-md-6">
 	 									<div class="form-group">
 											<div class="form-group">
-												<h5>Contact Person's Email:  <span class="text-danger">*</span></h5>
+												<h5>Contact Person's Email (If Applicable): </h5>
 												<div class="controls">
-												<input type="email" name="customer_contact_person_email" class="form-control" required="">
+												<input type="email" name="customer_contact_person_email" class="form-control" >
 											     @error('customer_contact_person_email') 
 												 <span class="text-danger">{{ $message }}</span>
 												 @enderror
@@ -186,9 +169,9 @@
 	 									<div class="form-group">
 
 											<div class="form-group">
-												<h5>Contact Person's Phone:  <span class="text-danger">*</span></h5>
+												<h5>Contact Person's Phone (If Applicable): </h5>
 												<div class="controls">
-												<input type="phone" name="customer_contact_person_phone" class="form-control" required="">
+												<input type="phone" name="customer_contact_person_phone" class="form-control" >
 											     @error('customer_contact_person_phone') 
 												 <span class="text-danger">{{ $message }}</span>
 												 @enderror
@@ -205,36 +188,7 @@
 						</div>
 					</section>
 					<!--Salary Section-->
-					<section class="content">
-			 			<div class="box-header with-border">
-				  			<h4 class="box-title" style="text-decoration: underline;">3.In Case of Discount:</h4>
-						</div>
-					 	<div class="row">
-							<div class="col-12">	
-								<div class="row"> <!-- start 1st row  -->
-
-									<div class="col-md-6">
-	 									<div class="form-group">
-
-											<div class="form-group">
-												<h5>Discount:  <span class="text-danger">*</span></h5>
-												<div class="controls">
-												<input type="text" name="customer_discount" class="form-control" required="">
-											     @error('customer_discount') 
-												 <span class="text-danger">{{ $message }}</span>
-												 @enderror
-									 	  		</div>
-		 									</div>
-				
-										</div>
-									</div> <!-- end col md 4 -->
-
-									
-			
-								</div> <!-- end 1st row  -->
-
-						</div>
-					</section>
+					
 					
 
 						 

@@ -25,7 +25,8 @@
 									<thead>
 										<tr>
 											<th>Payment Plan ID</th>
-											<th>Premium </th>
+											<th>Gross Amount</th>
+											<th>Net Amount</th>
 											<th>Commission </th>
 											<th>Date </th>
 											@if(auth()->check()&& auth()->user()->role->name === 'Admin' || auth()->user()->role->name === 'Chairman' || auth()->user()->role->name === 'Manager')
@@ -40,6 +41,7 @@
 										 <tr>
 											 <td>PP{{ $item->payment_plan_id }}</td>
 											 <td>{{ $item->original_amount }}</td>
+											 <td>{{ $item->net_amount }}</td>
 											 <td>{{ $item->commission }} </td>
 											 <td> {{ \Carbon\Carbon::parse($item->created_at )->format('d F Y')}}</td>
 											 @if(auth()->check()&& auth()->user()->role->name === 'Admin' || auth()->user()->role->name === 'Chairman' || auth()->user()->role->name === 'Manager')
@@ -87,8 +89,8 @@
 									<thead>
 										<tr>
 											<th>Payment Plan ID</th>
-											<th>Premium </th>
-											<th>Commission </th>
+											<th>Gross Amount</th>
+											<th>Net Amount</th>
 											<th>Date </th>
 											@if(auth()->check()&& auth()->user()->role->name === 'Admin' || auth()->user()->role->name === 'Chairman' || auth()->user()->role->name === 'Manager')
 											<th>Initiated By </th>
@@ -102,6 +104,7 @@
 										 <tr>
 											 <td>OTP{{ $item->onetime_purchase_id }}</td>
 											 <td>{{ $item->original_amount }}</td>
+											 <td>{{ $item->net_amount }}</td>
 											 <td>{{ $item->commission }} </td>
 											 <td> {{ \Carbon\Carbon::parse($item->created_at )->format('d F Y')}}</td>
 											 @if(auth()->check()&& auth()->user()->role->name === 'Admin' || auth()->user()->role->name === 'Chairman' || auth()->user()->role->name === 'Manager')
@@ -148,7 +151,8 @@
 									<thead>
 										<tr>
 											<th>Payment Plan ID</th>
-											<th>Premium </th>
+											<th>Gross Amount</th>
+											<th>Net Amount</th>
 											<th>Commission </th>
 											<th>Date </th>
 											@if(auth()->check()&& auth()->user()->role->name === 'Admin' || auth()->user()->role->name === 'Chairman' || auth()->user()->role->name === 'Manager')
@@ -163,6 +167,7 @@
 										 <tr>
 											 <td>PP{{ $item->payment_plan_id }}</td>
 											 <td>{{ $item->original_amount }}</td>
+											 <td>{{ $item->net_amount }}</td>
 											 <td>{{ $item->commission }} </td>
 											 <td> {{ \Carbon\Carbon::parse($item->created_at )->format('d F Y')}}</td>
 											 @if(auth()->check()&& auth()->user()->role->name === 'Admin' || auth()->user()->role->name === 'Chairman' || auth()->user()->role->name === 'Manager')
@@ -210,7 +215,8 @@
 									<thead>
 										<tr>
 											<th>Payment Plan ID</th>
-											<th>Premium </th>
+											<th>Gross Amount</th>
+											<th>Net Amount</th>
 											<th>Commission </th>
 											<th>Date </th>
 											@if(auth()->check()&& auth()->user()->role->name === 'Admin' || auth()->user()->role->name === 'Chairman' || auth()->user()->role->name === 'Manager')
@@ -225,6 +231,7 @@
 										 <tr>
 											 <td>OTP{{ $item->onetime_purchase_id }}</td>
 											 <td>{{ $item->original_amount }}</td>
+											 <td>{{ $item->net_amount }}</td>
 											 <td>{{ $item->commission }} </td>
 											 <td> {{ \Carbon\Carbon::parse($item->created_at )->format('d F Y')}}</td>
 											 @if(auth()->check()&& auth()->user()->role->name === 'Admin' || auth()->user()->role->name === 'Chairman' || auth()->user()->role->name === 'Manager')

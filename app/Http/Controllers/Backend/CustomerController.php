@@ -106,6 +106,11 @@ class CustomerController extends Controller
         return redirect()->back()->with($notification);
     }
 
-    
+    public function CustomerAccountDetails($id){
+
+        $customer = Customer::findOrFail($id);
+        
+        return view('admin.backend.customer.details_customer',compact('customer'));
+    }
     
 }

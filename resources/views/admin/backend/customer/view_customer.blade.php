@@ -26,7 +26,7 @@
 											<th>Name</th>
 											<th>Email </th>
 											<th>Phone </th>
-											<th>Gender </th>
+											
 											<th>KRA Pin </th>
 											<th>National ID </th>
 											<th>Action</th>
@@ -39,13 +39,13 @@
 											 <td>{{ $item->customer_name }}</td>
 											 <td>{{ $item->customer_email }}</td>
 											 <td>{{ $item->customer_phone_no }} </td>
-											 <td> {{ $item->customer_gender }}</td>
+											
 											 <td> {{ $item->customer_kra_pin }}</td>
 											 <td> {{ $item->customer_national_id }}</td>
 
 
 											<td width="30%">
-												 <a href="{{ route('edit-customer-details',$item->id) }}" class="btn btn-primary" title="Customer Details Data"><i class="fa fa-eye"></i> </a>
+												 <a href="{{ route('customer-account',$item->id) }}" class="btn btn-primary" title="Customer Details Data"><i class="fa fa-eye"></i> </a>
 
 												 <a href="{{ route('edit-customer-details',$item->id) }}" class="btn btn-info" title="Edit Data"><i class="fa fa-pencil"></i> </a>
 

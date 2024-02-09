@@ -29,20 +29,20 @@ class PaymentPlanController extends Controller
         // Retrieve the customer based on the provided customer_id
         $customer = Customer::findOrFail($request->customer_id);
 
-        $discountedPremium = $request->original_amount - $customer->customer_discount;
-        $balanceAmount = $discountedPremium - $request->input('deposit_amount');
+        
+        
 
         // Calculate the commission for the insurance agency (adjust the commission rate as needed)
         $commissionRate = $request->commission_premium / 100;
-        $commissionAmount = $request->input('original_amount') * $commissionRate;
+        $commissionAmount = $request->input('net_amount') * $commissionRate;
 
         // Create a new PaymentPlan instance
         $paymentPlan = new PaymentPlan([
             'original_amount' => $request->input('original_amount'),
-            'discounted_amount' => $discountedPremium,
-            'installment' => $request->input('installment'),
-            'balance' => $balanceAmount,
-            'due_date' => $request->input('due_date'),
+            
+            'net_amount' => $request->input('net_amount'),
+            'balance' => $request->input('net_amount'),
+            
             'months' => $request->input('months'),
             'months_left' => $request->input('months'),
             'commission_premium' => $request->input('commission_premium'),
@@ -56,6 +56,28 @@ class PaymentPlanController extends Controller
 
         // Save the payment plan to the customer
         $customer->paymentPlans()->save($paymentPlan);
+
+        // Process installment information
+        $installments = $request->input('installment');
+        $due_dates = $request->input('due_date');
+        $payment_options = $request->input('payment_option');
+
+        // Loop through each installment and due date, and create Installment records
+        foreach ($installments as $key => $installmentAmount) {
+            $installment = new Installment([
+                'installment' => $installmentAmount,
+                'payment_option' => $payment_options[$key], // Add payment option
+                'due_date' => $due_dates[$key],
+                'status' => 0, // Set status to unpaid by default
+                'created_at' => Carbon::now(), // Set the current timestamp as the creation time
+                 // Set the current timestamp as the update time
+                'payment_plan_id' => $paymentPlan->id, // Associate the installment with the payment plan
+                'customer_id' => $customer->id, // Associate the installment with the customer
+                'recorded_by' => auth()->user()->name, // Assuming you want to record the current user who adds the installment
+            ]);
+            // Save the installment to the payment plan
+            $paymentPlan->installments()->save($installment);
+        }
 
         // If the plan is approved and duration is less than or equal to 3 months, calculate and store commission
         if ($paymentPlan->approval == 1 && $paymentPlan->months <= 3) {
@@ -297,7 +319,7 @@ class PaymentPlanController extends Controller
     public function generatePlanPDF($id)
     {
         // Fetch data for the receipt
-        $paymentplan = PaymentPlan::with('customer')->findOrFail($id);
+        $paymentplan = PaymentPlan::with('customer', 'installments')->findOrFail($id);
 
         // Generate PDF using the 'your-receipt-view' Blade view and the fetched data
         $pdf = PDF::loadView('admin.backend.print_pp', compact('paymentplan'));
@@ -314,30 +336,35 @@ class PaymentPlanController extends Controller
     public function ViewCommission(){
 
          $commission_payment_plans = DB::table('commissions')
-            ->join('payment_plans', 'commissions.payment_plan_id', '=', 'payment_plans.id')
-            ->select('commissions.*', 'payment_plans.original_amount','payment_plans.created_by')
-            ->latest()->get();
+    ->join('payment_plans', 'commissions.payment_plan_id', '=', 'payment_plans.id')
+    ->select('commissions.*', 'payment_plans.*', 'payment_plans.created_by as payment_plan_created_by')
+    ->latest('payment_plans.created_at') // Specify the table for created_at column
+    ->get();
 
-         $commission_onetime_purchases = DB::table('commissions')
-            ->join('one_time_purchases', 'commissions.onetime_purchase_id', '=', 'one_time_purchases.id')
-            ->select('commissions.*', 'one_time_purchases.original_amount', 'one_time_purchases.created_by')
-            ->latest()->get();
+$commission_onetime_purchases = DB::table('commissions')
+    ->join('one_time_purchases', 'commissions.onetime_purchase_id', '=', 'one_time_purchases.id')
+    ->select('commissions.*', 'one_time_purchases.*', 'one_time_purchases.created_by as onetime_purchase_created_by')
+    ->latest('one_time_purchases.created_at') // Specify the table for created_at column
+    ->get();
 
-        $currentUserName = auth()->user()->name;
+$currentUserName = auth()->user()->name;
 
-        $commission_payment_plans_by_current_user = DB::table('commissions')
-            ->join('payment_plans', 'commissions.payment_plan_id', '=', 'payment_plans.id')
-            ->where('payment_plans.created_by', $currentUserName)
-            ->select('commissions.*', 'payment_plans.original_amount', 'payment_plans.created_by')
-            ->latest()
-            ->get();
+$commission_payment_plans_by_current_user = DB::table('commissions')
+    ->join('payment_plans', 'commissions.payment_plan_id', '=', 'payment_plans.id')
+    ->where('payment_plans.created_by', $currentUserName)
+    ->select('commissions.*', 'payment_plans.*', 'payment_plans.created_by as payment_plan_created_by')
+    ->latest('payment_plans.created_at') // Specify the table for created_at column
+    ->get();
 
-        $commission_onetime_purchases_by_current_user = DB::table('commissions')
-            ->join('one_time_purchases', 'commissions.onetime_purchase_id', '=', 'one_time_purchases.id')
-            ->where('one_time_purchases.created_by', $currentUserName)
-            ->select('commissions.*', 'one_time_purchases.original_amount', 'one_time_purchases.created_by')
-            ->latest()
-            ->get();
+$commission_onetime_purchases_by_current_user = DB::table('commissions')
+    ->join('one_time_purchases', 'commissions.onetime_purchase_id', '=', 'one_time_purchases.id')
+    ->where('one_time_purchases.created_by', $currentUserName)
+    ->select('commissions.*', 'one_time_purchases.*', 'one_time_purchases.created_by as onetime_purchase_created_by')
+    ->latest('one_time_purchases.created_at') // Specify the table for created_at column
+    ->get();
+
+
+
         
         return view('admin.commission.view_commissions',compact('commission_payment_plans','commission_onetime_purchases','commission_onetime_purchases_by_current_user','commission_payment_plans_by_current_user'));
     } 
@@ -357,19 +384,22 @@ class PaymentPlanController extends Controller
                 // Retrieve the customer based on the provided customer_id
                 $customer = Customer::findOrFail($request->customer_id);
 
-                $discountedPremium = $request->original_amount - $customer->customer_discount;
+                
 
                 
 
                 // Calculate the commission for the insurance agency (adjust the commission rate as needed)
                     $commissionRate = $request->commission_premium / 100;
-                    $commissionAmount = $request->input('original_amount') * $commissionRate;
+                    $commissionAmount = $request->input('net_amount') * $commissionRate;
 
                 
                 
                 // Create a new One Time Purchase instance
                 $onetimePurchase = new OneTimePurchase([
                     'original_amount' => $request->input('original_amount'),
+                    'net_amount' => $request->input('net_amount'),
+                    'payment_option' => $request->input('payment_option'),
+                    'transaction_code' => $request->input('transaction_code'),
                     'commission_premium' => $request->input('commission_premium'),
                     'created_by' => auth()->user()->name,
                     
@@ -429,5 +459,71 @@ class PaymentPlanController extends Controller
         ]);
     }
 
+    public function PaymentPlanDetails($id){
+
+// Retrieve the payment plan along with its related customer and installments
+    $payment_plan = PaymentPlan::with('customer', 'installments')->findOrFail($id);
+
+    // You can also retrieve related commission if needed
+    $commission = $payment_plan->commission;
+
+    // Alternatively, if you want to access the customer's data directly, you can do so like this:
+    // $customer = $payment_plan->customer;
+
+    // Now you have access to all related data, including installments
+    // You can pass these variables to your view
+    return view('admin.paymentplan.payment_plan_details', compact('payment_plan', 'commission'));
+
+    }
+
+    public function EditInstallmentDetails($id) {
+    // Retrieve the installment based on the provided ID
+    $installment = Installment::findOrFail($id);
+
+    // Pass the $installment variable to the view
+    return view('admin.paymentplan.edit_installment', compact('installment'));
+}
+
+    public function UpdateInstallmentDetails(Request $request){    
+
+        $installment_id = $request->id;
+
+        $installment = Installment::findOrFail($installment_id);
+
+        Installment::findOrFail($installment_id)->update([
+
+            'installment' => $request->installment,
+            'transaction_code' => $request->transaction_code,
+            'payment_option' => $request->payment_option,
+            'updated_by' => auth()->user()->name,
+            'status' => $request->status,
+            
+            'updated_at' => Carbon::now(),   
+
+            ]);
+        // Recalculate the remaining months for the associated payment plan
+            $paymentPlan = $installment->paymentPlan;
+            $remainingMonths = $paymentPlan->installments()->where('status', 0)->count();
+
+            // Update the remaining months for the payment plan
+            $paymentPlan->update([
+                'months_left' => $remainingMonths,
+            ]);
+        // Recalculate the balance for the associated payment plan
+            $paymentPlan = $installment->paymentPlan;
+            $totalPaidAmount = $paymentPlan->installments()->where('status', 1)->sum('installment');
+
+            // Update the balance based on the total paid amount
+            $paymentPlan->update([
+                'balance' => $paymentPlan->net_amount - $totalPaidAmount,
+            ]);
+        $notification = array(
+            'message' => 'Installment Updated Successfully',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('view-payment-plans')->with($notification);
+
+    }
     
 }

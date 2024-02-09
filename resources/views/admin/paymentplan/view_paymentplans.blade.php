@@ -25,17 +25,12 @@
 										<tr>
 											<th>Payment Plan ID</th>
 											<th>Name </th>
-											<th>Amount </th>
-											<th>Installment </th>
+											<th>Gross Amount</th>
+											<th>Net Amount </th>
 											<th>Balance</th>
-											<th>Months Left </th>
-											<th>Due Date </th>
 											<th>Approval </th>
-											@if(auth()->check()&& auth()->user()->role->name === 'Admin' || auth()->user()->role->name === 'Chairman' || auth()->user()->role->name === 'Manager')
-											<th>Created By </th>
-											@endif
-											<th>Status</th>
-											<th width="30%">Action</th>
+											
+											<th>Action</th>
 											
 											
 											 
@@ -44,13 +39,11 @@
 										<tbody>
 										 @foreach($payment_plans as $item)
 										 <tr>
-											 <td>PP{{ $item->id }}</td>
+											 <td width="10%">PP{{ $item->id }}</td>
 											 <td>{{ $item->customer_name }}</td>
-											 <td>{{ $item->discounted_amount }} </td>
-											 <td> {{ $item->installment }}</td>
+											 <td>{{ $item->net_amount }} </td>
+											 <td>{{ $item->original_amount }} </td>
 											 <td> {{ $item->balance }}</td>
-											 <td> {{ $item->months_left }}</td>
-											 <td> {{ $item->due_date }}</td>
 
 											 <td>
 											 	@if($item->approval == 1)
@@ -60,19 +53,10 @@
 											 	@endif
 
 											 </td>
-											 @if(auth()->check()&& auth()->user()->role->name === 'Admin' || auth()->user()->role->name === 'Chairman' || auth()->user()->role->name === 'Manager')
-											 <td>{{ $item->created_by }} </td>
-											 @endif
-											 <td>
-											 	@if($item->status == 0)
-											 	<span class="badge badge-pill badge-success"> Active </span>
-											 	@else
-									           <span class="badge badge-pill badge-danger"> Plan Completed </span>
-											 	@endif
+											 
+											 
 
-											 </td>
-
-											 <td>
+											 <td width="20%">
 												 
 												 	@if($item->status == 1)
 												 	<a href="{{ route('paymentplan.inactive',$item->id) }}" class="btn btn-danger" title="Inactive Now"><i class="fa fa-arrow-down"></i> </a>
@@ -87,14 +71,15 @@
 												 <a href="#" class="btn btn-Light" title="Already Approved "><i class="fa fa-arrow-up"></i> </a>
 												 @endif
 												 @endif
-												 @if($item->approval == 1)
-											 	<a href="{{ route('edit-balance',$item->id) }}" class="btn btn-warning" title="Add Installment"><i class="fa fa-money"></i> </a>
+												
+											 	@if($item->approval == 1)
+											 	<a href="{{ route('installment-history',$item->id) }}" class="btn btn-info" title="Update Installment"><i class="fa fa-money"></i> </a>
 											 	@else
-									      <a href="#" class="btn btn-warning" title="Can't Edit Until Approval"><i class="fa fa-money"></i> </a>
-											 	@endif
-											 	<a href="{{ route('installment-history',$item->id) }}" class="btn btn-info" title="Installment History"><i class="fa fa-history"></i> </a>
-											</td>		
-																							 
+									      <a href="#" class="btn btn-warning" title="Can't Update Until Approval"><i class="fa fa-money"></i> </a>
+									      @endif
+											 	<a href="{{ route('paymentplan-details',$item->id) }}" class="btn btn-light" title="Payment Plan Details Data"><i class="fa fa-eye"></i> </a>
+											</td>
+																				 
 										 </tr>
 										  	@endforeach
 										</tbody>

@@ -16,7 +16,11 @@
 						 <div class="box">
 							<div class="box-header with-border d-flex">
 							    <h3 class="box-title">Installment for PP{{$payment_plan->id}}<span class="badge badge-pill badge-danger"> {{ count($installmentHistory) }} </span></h3>
-							    <a href="{{ route('generate-pdf-history',$payment_plan->id)}}" class="btn btn-primary ml-auto" title="Print"><i class="fa fa-print"></i></a>
+
+							    <a href="{{ route('generate-pdf-history',$payment_plan->id)}}" class="btn btn-primary ml-auto" title="Print All Installments"><i class="fa fa-print"></i></a>
+							</div>
+							<div class="box-header with-border d-flex">
+								<h3 class="box-title">Customer Name: {{ $payment_plan->customer->customer_name }}</h3>
 							</div>
 
 							<!-- /.box-header -->
@@ -26,11 +30,13 @@
 									<thead>
 										<tr>
 											<th>Installment ID</th>
-											<th>Payment Plan ID</th>
-											<th>Customer Name </th>
 											<th>Installment </th>
-											<th>Recorded By </th>
-											<th>Created At</th>
+											<th>Payment Method</th>
+											<th>Transaction Code </th>
+											<th>Due Date</th>
+											<th>Status</th>
+											<th>Updated At</th>
+											<th>Action</th>
 											
 											
 											
@@ -41,11 +47,30 @@
 										 @foreach($installmentHistory as $item)
 										 <tr>
 										 	<td>IM{{ $item->id }}</td>
-											 <td>PP{{ $item->payment_plan_id }}</td>
-											 <td>{{ $item->customer->customer_name }}</td>
 											 <td>{{ $item->installment }} </td>
-											 <td> {{ $item->recorded_by }}</td>
-											 <td> {{ $item->created_at }}</td>																								 
+											 <td>{{ $item->payment_option }} </td>
+											 <td>
+                          @if($item->transaction_code)
+                          {{ $item->transaction_code }}
+                          @else
+                          No Code Yet
+                          @endif
+                       </td>
+											 <td> {{ $item->due_date }}</td>
+											 <td>
+											 	@if($item->status)
+                                                    <span class="badge badge-success">Paid</span>
+                                                @else
+                                                    <span class="badge badge-danger">Unpaid</span>
+                                                @endif
+											 </td>
+											 <td> {{ \Carbon\Carbon::parse($item->updated_at )->format('d F Y')}}</td>
+											 <td width="20%">
+												 <a href="{{ route('generate-installment-receipt',$item->id) }}" class="btn btn-primary" title="Print This Installment"><i class="fa fa-print"></i> </a>
+												 <a href="{{ route('edit-installment-details',$item->id) }}" class="btn btn-primary" title="Update This Installment"><i class="fa fa-pencil"></i> </a>
+
+								
+											</td>																									 
 										 </tr>
 										  	@endforeach
 										</tbody>
@@ -71,6 +96,8 @@
 		<!-- /.content -->
 	  
 	  </div>
+	  
+
   
 
 

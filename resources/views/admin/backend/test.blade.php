@@ -24,7 +24,7 @@
 				<div class="col-12">
 				  <div class="page-header">
 				  	<div class="text-center">
-    <img src="{{ asset('logo/logo.jpg') }}" alt="Company Logo" class="img-fluid mb-3" style="max-width: 200px;">
+    <img src="{{ asset('logo/enhancedlogo.jpg') }}" alt="Company Logo" class="img-fluid mb-3" style="max-width: 200px;">
 </div>
 
 					<h2 class="d-inline"><span class="font-size-30">Receipt</span></h2>
@@ -71,21 +71,18 @@
 					<tbody>
 					<tr>
 					  <th>#</th>
-					  <th>Premium Amount</th>
-					  <th class="text-right">Quantity</th>
-					  <th class="text-right">Discount</th>
+					  <th>Gross Amount</th>
+					  <th class="text-right">Net Amount</th>
+					  
 					  <th class="text-right">Generated At</th>
 					  <th class="text-right">Subtotal</th>
 					</tr>
 					<tr>
 					  <td>1</td>
-					  <td>{{$onetime_purchase->original_amount}}</td>
-					  <td class="text-right">1</td>
-					  
-					  <td>{{$onetime_purchase->customer->customer_discount}}</td>
-					
+					  <td>KES {{$onetime_purchase->original_amount}}</td>
+					  <td class="text-right">KES {{$onetime_purchase->net_amount}}</td>
 					  <td class="text-right">{{\Carbon\Carbon::parse($onetime_purchase->created_at )->format('d F Y')}}</td>
-					  <td class="text-right">KES {{ (float)$onetime_purchase->original_amount - (float)$onetime_purchase->customer->customer_discount }}</td>
+					  <td class="text-right">KES {{$onetime_purchase->net_amount}}</td>
 					  
 					</tr>
 					
@@ -100,7 +97,7 @@
 				<div class="col-12 text-right">
 					
 					<div class="total-payment">
-						<h3><b>Total :</b> KES {{ (float)$onetime_purchase->original_amount - (float)$onetime_purchase->customer->customer_discount }} </h3>
+						<h3><b>Total :</b> KES {{$onetime_purchase->net_amount}} </h3>
 					</div>
 
 				</div>

@@ -19,4 +19,9 @@ class PaymentPlan extends Model
     {
         return $this->hasOne(Commission::class);
     }
+
+    public function installments()
+    {
+        return $this->hasMany(Installment::class);
+    }
 }

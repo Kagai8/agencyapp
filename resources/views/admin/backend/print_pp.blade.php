@@ -212,7 +212,7 @@
   <body>
     <header class="clearfix">
       <div id="logo">
-        <img src="data:image/jpeg;base64,{{ base64_encode(file_get_contents(public_path('logo/logobilabg.png'))) }}">
+        <img src="data:image/jpeg;base64,{{ base64_encode(file_get_contents(public_path('logo/enhancedlogo.jpg'))) }}">
       </div>
       <div id="company">
         <h2 class="name">Greenline Insurance Agencies</h2>
@@ -238,15 +238,18 @@
           
         </div>
       </div>
+      <div style="background-color: #f0f0f0; padding: 15px; border-radius: 8px; box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); margin-bottom: 20px;">
+          <h3 style="color: #333; font-weight: bold; margin-bottom: 10px;">Payment Plan Information</h3>
+      </div>
       <table border="0" cellspacing="0" cellpadding="0">
         <thead>
           <tr>
             <th class="no">#</th>
-            <th class="desc">PREMIUM AMOUNT</th>
-            <th class="desc">DEPOSIT</th>
-            <th class="desc">INSTALLMENT</th>
+            <th class="desc">GROSS AMOUNT</th>
+            <th class="desc">NET AMOUNT</th>
             <th class="desc">PERIOD</th>
-            
+            <th class="desc">STATUS</th>
+           
             
             <th class="total">TOTAL</th>
           </tr>
@@ -255,39 +258,71 @@
           <tr>
             <td class="no">01</td>
             <td class="desc">{{$paymentplan->original_amount}}</td>
-            <td class="desc">{{$paymentplan->deposit_amount}}</td>
-            <td class="desc">{{$paymentplan->installment}}</td>
+            <td class="desc">{{$paymentplan->net_amount}}</td>
             <td class="desc">{{$paymentplan->months}} months</td>
-            <td class="total">{{$paymentplan->original_amount}}</td>
+            @if($paymentplan->status == 1)
+            <td class="desc">Done </td>
+            @else
+            <td class="desc">Active </td>
+            @endif
+            <td class="total">{{$paymentplan->net_amount}}</td>
           </tr>
           
+        </tbody>
+        
+      </table>
+      <div style="background-color: #f0f0f0; padding: 15px; border-radius: 8px; box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); margin-bottom: 20px;">
+          <h3 style="color: #333; font-weight: bold; margin-bottom: 10px;">Installments Information</h3>
+      </div>
+      <table border="0" cellspacing="0" cellpadding="0">
+        <thead>
+          <tr>
+            <th class="no">#</th>
+            <th class="desc">INSTALLMENT</th>
+            <th class="desc">DUE DATE</th>          
+            <th class="desc">STATUS</th>
+           
+            
+            <th class="total">TOTAL</th>
+          </tr>
+        </thead>
+        <tbody>
+          @foreach($paymentplan->installments as $key => $installment)
+          <tr>
+            <td class="no">{{ $key + 1 }}</td>
+            <td class="desc">{{$installment->installment}}</td>
+            <td class="desc">{{$installment->due_date}}</td>
+            
+            @if($installment->status == 1)
+            <td class="desc">Paid </td>
+            @else
+            <td class="desc">Unpaid </td>
+            @endif
+            <td class="total">{{$installment->installment}}</td>
+          </tr>
+          @endforeach
         </tbody>
         <tfoot>
           <tr>
             <td colspan="2"></td>
             <td colspan="2">SUBTOTAL(KSH)</td>
-            <td>{{ $paymentplan->original_amount  }}</td>
+            <td>{{ $paymentplan->net_amount  }}</td>
           </tr>
           
-          <tr>
-            <td colspan="2"></td>
-            <td colspan="2">DISCOUNT(KSH)</td>
-            <td>{{$paymentplan->customer->customer_discount}}</td>
-          </tr>
+          
        
           <tr>
             <td colspan="2"></td>
             <td colspan="2">GRAND TOTAL</td>
-            <td>KSH {{$paymentplan->discounted_amount}}</td>
+            <td>KSH {{$paymentplan->net_amount}}</td>
           </tr>
         </tfoot>
       </table>
-      <br><br><br>
+      <br>
       <div id="thanks">
         Served By: <span class="underline-text">{{ auth()->user()->name }}</span>
       </div>
 
-      <br> <br>
       <div id="notices">
         <div></div>
         <div class="notice">System By @CaptainCyber Ke</div>

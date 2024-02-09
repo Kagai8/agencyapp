@@ -181,7 +181,7 @@
         }
 
         #thanks{
-          font-size: 2em;
+          font-size: 1.2em;
           margin-bottom: 50px;
         }
 
@@ -191,7 +191,7 @@
         }
 
         #notices .notice {
-          font-size: 1.2em;
+          font-size: 1em;
         }
 
         footer {
@@ -211,7 +211,7 @@
   <body>
     <header class="clearfix">
       <div id="logo">
-        <img src="data:image/jpeg;base64,{{ base64_encode(file_get_contents(public_path('logo/logobilabg.png'))) }}">
+        <img src="data:image/jpeg;base64,{{ base64_encode(file_get_contents(public_path('logo/enhancedlogo.jpg'))) }}">
       </div>
       <div id="company">
         <h2 class="name">Greenline Insurance Agencies</h2>
@@ -241,8 +241,8 @@
         <thead>
           <tr>
             <th class="no">#</th>
-            <th class="desc">AMOUNT PAID</th>
-            <th class="unit">DISCOUNT</th>
+            <th class="desc">GROSS AMOUNT</th>
+            <th class="unit">NET AMOUNT</th>
             <th class="qty">GENERATED AT</th>
             <th class="total">TOTAL</th>
           </tr>
@@ -252,10 +252,10 @@
             <td class="no">01</td>
             <td class="desc">KSH {{$onetime_purchase->original_amount}}</td>
       
-            <td class="unit">KSH {{$onetime_purchase->customer->customer_discount}}</td>
+            <td class="unit">KSH {{$onetime_purchase->net_amount}}</td>
           
             <td class="qty">{{\Carbon\Carbon::parse($onetime_purchase->created_at )->format('d F Y')}}</td>
-            <td class="total">KSH {{ (float)$onetime_purchase->original_amount - (float)$onetime_purchase->customer->customer_discount }}</td>
+            <td class="total">KSH {{$onetime_purchase->net_amount}}</td>
           </tr>
           
         </tbody>
@@ -265,7 +265,7 @@
           <tr>
             <td colspan="2"></td>
             <td colspan="2">GRAND TOTAL</td>
-            <td style="text-underline-position: 20px">KSH  {{ (float)$onetime_purchase->original_amount - (float)$onetime_purchase->customer->customer_discount }}</td>
+            <td style="text-underline-position: 20px">KSH  {{$onetime_purchase->net_amount}}</td>
           </tr>
         </tfoot>
       </table>
