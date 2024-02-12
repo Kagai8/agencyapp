@@ -192,18 +192,38 @@
                                         <th>Updated By</th>
                                         <th>Updated At</th>
                                         <th>Status</th>
+                                        <th>Track</th>
 
                                                                                 <!-- Add more columns if needed -->
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach($payment_plan->installments as $installment)
+                                    @php
+                                        $dueDate = \Carbon\Carbon::parse($installment->due_date);
+                                        $currentDate = \Carbon\Carbon::now();
+                                        $daysDifference = $currentDate->diffInDays($dueDate);
+                                        
+                                        if ($installment->status == 1) {
+                                            $status = 'Paid on time';
+                                            $badgeClass = 'badge-success';
+                                        } elseif ($dueDate->lt($currentDate)) {
+                                            $status = 'Overdue';
+                                            $badgeClass = 'badge-danger';
+                                        } elseif ($dueDate->gte($currentDate) && $daysDifference < 3) {
+                                            $status = 'Less than 3 days';
+                                            $badgeClass = 'badge-warning';
+                                        } else {
+                                            $status = 'On Track';
+                                            $badgeClass = 'badge-success';
+                                        }
+                                    @endphp
                                         <tr>
-                                            <td>{{ $installment->installment }}</td>
+                                            <td width="10%">{{ $installment->installment }}</td>
                                             <td>{{ $installment->due_date }}</td>
-                                            <td>{{ $installment->payment_option }}</td>
+                                            <td width="10%">{{ $installment->payment_option }}</td>
                                            
-                                            <td>
+                                            <td width="10%">
                                                 @if($installment->transaction_code)
                                                 {{ $installment->transaction_code }}
                                                 @else
@@ -225,12 +245,15 @@
                                                 N/A
                                                 @endif
                                             </td>
-                                            <td>
+                                            <td width="10%">
                                                 @if($installment->status)
                                                     <span class="badge badge-success">Paid</span>
                                                 @else
                                                     <span class="badge badge-danger">Unpaid</span>
                                                 @endif
+                                            </td>
+                                            <td width="10%">
+                                                    <span class="badge {{ $badgeClass }}">{{ $status }}</span>
                                             </td>
                                             
                                         </tr>

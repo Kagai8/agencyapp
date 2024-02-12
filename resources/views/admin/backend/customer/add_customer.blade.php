@@ -48,9 +48,9 @@
 									<div class="col-md-6">
 	 									<div class="form-group">
 											<div class="form-group">
-												<h5>Customer's Email:  <span class="text-danger">*</span></h5>
+												<h5>Customer's Email:  </h5>
 												<div class="controls">
-												<input type="email" name="customer_email" class="form-control" required="">
+												<input type="email" name="customer_email" class="form-control" >
 											     @error('customer_email') 
 												 <span class="text-danger">{{ $message }}</span>
 												 @enderror

@@ -79,7 +79,136 @@
 </div>
 </div>
  
- 
+ <div class="box">
+                <div class="box-header with-border">
+                  <h5 class="box-title"> Installemts Overdue Information</h5>
+                </div>
+                <!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Installment Amount</th>
+                                        <th>Due Date</th>
+                                        <th>Customer Name</th>
+                                        <th>Status</th>
+                                        <th>Track</th>
 
+                                                                                <!-- Add more columns if needed -->
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($installmentsOverdues as $installment)
+                                    @php
+                                        $dueDate = \Carbon\Carbon::parse($installment->due_date);
+                                        $currentDate = \Carbon\Carbon::now();
+                                        $daysDifference = $currentDate->diffInDays($dueDate);
+                                        
+                                        if ($installment->status == 1) {
+                                            $status = 'Paid on time';
+                                            $badgeClass = 'badge-success';
+                                        } elseif ($dueDate->lt($currentDate)) {
+                                            $status = 'Overdue';
+                                            $badgeClass = 'badge-danger';
+                                        } elseif ($dueDate->gte($currentDate) && $daysDifference < 3) {
+                                            $status = 'Less than 3 days';
+                                            $badgeClass = 'badge-warning';
+                                        } else {
+                                            $status = 'On Track';
+                                            $badgeClass = 'badge-success';
+                                        }
+                                    @endphp
+                                        <tr>
+                                            <td >{{ $installment->installment }}</td>
+                                            <td>{{ $installment->due_date }}</td>
+                                            <td >{{ $installment->customer->customer_name }}</td>
+                                           
+                                           
+                                            <td >
+                                                @if($installment->status)
+                                                    <span class="badge badge-success">Paid</span>
+                                                @else
+                                                    <span class="badge badge-danger">Unpaid</span>
+                                                @endif
+                                            </td>
+                                            <td >
+                                                    <span class="badge {{ $badgeClass }}">{{ $status }}</span>
+                                            </td>
+                                            
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+            </div>
+ 
+ <div class="box">
+                <div class="box-header with-border">
+                  <h5 class="box-title"> Installemts Soon Overdue Information</h5>
+                </div>
+                <!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Installment Amount</th>
+                                        <th>Due Date</th>
+                                        <th>Customer Name</th>
+                                        <th>Status</th>
+                                        <th>Track</th>
+
+                                                                                <!-- Add more columns if needed -->
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($installmentsSoonOverdues as $installment)
+                                    @php
+                                        $dueDate = \Carbon\Carbon::parse($installment->due_date);
+                                        $currentDate = \Carbon\Carbon::now();
+                                        $daysDifference = $currentDate->diffInDays($dueDate);
+                                        
+                                        if ($installment->status == 1) {
+                                            $status = 'Paid on time';
+                                            $badgeClass = 'badge-success';
+                                        } elseif ($dueDate->lt($currentDate)) {
+                                            $status = 'Overdue';
+                                            $badgeClass = 'badge-danger';
+                                        } elseif ($dueDate->gte($currentDate) && $daysDifference < 3) {
+                                            $status = 'Less than 3 days';
+                                            $badgeClass = 'badge-warning';
+                                        } else {
+                                            $status = 'On Track';
+                                            $badgeClass = 'badge-success';
+                                        }
+                                    @endphp
+                                        <tr>
+                                            <td >{{ $installment->installment }}</td>
+                                            <td>{{ $installment->due_date }}</td>
+                                            <td >{{ $installment->customer->customer_name }}</td>
+                                           
+                                           
+                                            <td >
+                                                @if($installment->status)
+                                                    <span class="badge badge-success">Paid</span>
+                                                @else
+                                                    <span class="badge badge-danger">Unpaid</span>
+                                                @endif
+                                            </td>
+                                            <td >
+                                                    <span class="badge {{ $badgeClass }}">{{ $status }}</span>
+                                            </td>
+                                            
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+            </div>
 
 @endsection

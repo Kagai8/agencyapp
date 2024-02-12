@@ -107,7 +107,8 @@ Route::group(['middleware' => ['auth', 'check.role:Admin,Manager,Chairman']], fu
     Route::post('/admin/update/employee', [EmployeeController::class, 'EmployeeUpdate'])->name('employee-update');
     Route::get('employee/delete/{id}', [EmployeeController::class, 'EmployeeDelete'])->name('employee.delete');
     Route::post('/admin/update/employee/image', [EmployeeController::class, 'EmployeeImageUpdate'])->name('update-employee-image');
-    Route::get('/edit/employee/{id}', [EmployeeController::class, 'EmployeeEdit'])->name('employee.details');
+    Route::get('/edit/employee/{id}', [EmployeeController::class, 'EmployeeEdit'])->name('employee.edit');
+    Route::get('/edit/employee/details/{id}', [EmployeeController::class, 'EmployeeDetails'])->name('employee.details');
     Route::get('/edit/employee/performance/{id}', [EmployeeController::class, 'EmployeePerformance'])->name('employee.performance');
 
     Route::get('/edit/work/days/employee/{id}', [PayRollController::class, 'EmployeeEditWorkDays'])->name('employee-edit-days');
@@ -126,6 +127,8 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+    Route::get('/view/support/details', [DashboardController::class, 'SupportDetails'])->name('support.details');
+
     
 });
 

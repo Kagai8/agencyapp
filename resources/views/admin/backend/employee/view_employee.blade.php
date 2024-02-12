@@ -47,9 +47,9 @@
 											<td width="30%" >
 												 <a href="{{ route('employee.details',$item->id) }}" class="btn btn-primary" title="employee Details Data"><i class="fa fa-eye"></i> </a>
 
-												 <a href="{{ route('employee.details',$item->id) }}" class="btn btn-info" title="Edit Data"><i class="fa fa-pencil"></i> </a>
+												 <a href="{{ route('employee.edit',$item->id) }}" class="btn btn-info" title="Edit Data"><i class="fa fa-pencil"></i> </a>
 
-												 <a href="{{ route('employee.performance',$item->id) }}" class="btn btn-warning" title="Performance Report"><i class="fa fa-file-code-o"></i> </a>
+												 
 
 												 <a href="{{ route('employee.delete',$item->id) }}" class="btn btn-danger" title="Delete Data" >
 												 	<i class="fa fa-trash"></i></a>

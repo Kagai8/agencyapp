@@ -7,6 +7,7 @@ use App\Models\Customer;
 use App\Models\PaymentPlan;
 use App\Models\Commission;
 use App\Models\Employee;
+use App\Models\Installment;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -26,8 +27,31 @@ class DashboardController extends Controller
 
         $totalCommissionUser = $totalCommissionPaymentPlan + $totalCommissionOneTimePurchase;
 
+        $installmentsOverdues = Installment::with('paymentPlan')
+        ->where('status', 0)
+        ->whereDate('due_date', '<', now())
+        ->take(5)
+        ->get();
+
+        // Installments that are soon overdue (within 3 days)
+        $installmentsSoonOverdues = Installment::with('paymentPlan')
+            ->where('status', 0)
+            ->whereDate('due_date', '>', now())
+            ->whereDate('due_date', '<', now()->addDays(3))
+            ->take(5)
+            ->get();
+
+        
 
 
-        return view('admin.index',compact('totalCommissions','payment_plans','employees','customers','totalCommissionUser'));
+
+        return view('admin.index',compact('totalCommissions','payment_plans','employees','customers','totalCommissionUser','installmentsOverdues','installmentsSoonOverdues'));
+    }
+
+    public function SupportDetails(){
+        
+
+
+        return view('admin.support.view_support');
     }
 }

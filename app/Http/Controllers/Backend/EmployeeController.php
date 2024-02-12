@@ -152,6 +152,14 @@ class EmployeeController extends Controller
 
     }
 
+    public function EmployeeDetails($id){
+
+        $employee = Employee::findOrFail($id);
+        return view('admin.backend.employee.details_employee',compact('employee'));
+
+    }
+
+
     public function EmployeeImageUpdate(Request $request){
         $employee_id = $request->id;
         $oldImage = $request->old_img;

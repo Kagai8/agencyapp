@@ -123,6 +123,20 @@
               
           </ul>
         </li>
+        <li class="treeview ">
+          <a href="#">
+            <i data-feather="mail"></i> <span>Support</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-right pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+              <li class=""><a href="{{ route('support.details')}}"><i class="ti-more"></i>Support Contact</a></li>
+              
+             
+              
+          </ul>
+        </li>
         @endif
 
 

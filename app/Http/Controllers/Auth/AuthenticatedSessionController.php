@@ -29,7 +29,12 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        $notification = array(
+                'message' => 'Welcome Back'.' '. auth()->user()->name,
+                'alert-type' => 'success'
+                );
+
+        return redirect()->intended(RouteServiceProvider::HOME)->with($notification);
     }
 
     /**
@@ -42,6 +47,11 @@ class AuthenticatedSessionController extends Controller
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
+
+        $request->session()->flash('notification', [
+        'message' => 'Goodbye! Hope to see you again.',
+        'alert-type' => 'success'
+    ]);
 
         return redirect('/');
     }

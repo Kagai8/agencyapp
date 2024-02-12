@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="icon" href="{{ asset('logo/logobilabg.png') }}">
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900&display=swap" rel="stylesheet">
+    <!-- Include Toastr CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
+
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     
@@ -13,9 +17,14 @@
 
     </head>
     <body>
+        
     <section class="ftco-section">
         <div class="container">
-            
+            @if(session('notification'))
+    <div class="alert alert-{{ session('notification.alert-type') }}">
+        {{ session('notification.message') }}
+    </div>
+@endif
             <div class="row justify-content-center">
 
                 <div class="col-md-12 col-lg-10">
@@ -77,11 +86,60 @@
         </div>
     </section>
 
+
+
+    </body>
+
+    <script>
+    $(document).ready(function() {
+        // Check if there's a notification message in the session
+        @if(session('notification'))
+            // Extract the notification message and type from the session
+            var message = '{{ session('notification.message') }}';
+            var type = '{{ session('notification.alert-type') }}';
+
+            // Show the Toastr notification
+            toastr.options = {
+                closeButton: true,
+                progressBar: true,
+                positionClass: 'toast-top-right', // You can change the position as per your requirement
+                timeOut: 5000 // Duration of the notification (in milliseconds)
+            };
+
+            toastr[type](message); // Show the notification of the specified type
+        @endif
+    });
+</script>
+    <script>
+ @if(Session::has('message'))
+ var type = "{{ Session::get('alert-type','info') }}"
+ switch(type){
+    case 'info':
+    toastr.info(" {{ Session::get('message') }} ");
+    break;
+
+    case 'success':
+    toastr.success(" {{ Session::get('message') }} ");
+    break;
+
+    case 'warning':
+    toastr.warning(" {{ Session::get('message') }} ");
+    break;
+
+    case 'error':
+    toastr.error(" {{ Session::get('message') }} ");
+    break; 
+ }
+ @endif 
+</script>
+    <!-- Include jQuery (required by Toastr) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Include Toastr JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="{{ asset('auth/js/jquery.min.js')}}"></script>
   <script src="{{ asset('auth/js/popper.js')}}"></script>
   <script src="{{ asset('auth/js/bootstrap.min.js')}}"></script>
   <script src="{{ asset('auth/js/main.js')}}"></script>
-
-    </body>
 </html>
 

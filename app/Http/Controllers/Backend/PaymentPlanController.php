@@ -336,32 +336,32 @@ class PaymentPlanController extends Controller
     public function ViewCommission(){
 
          $commission_payment_plans = DB::table('commissions')
-    ->join('payment_plans', 'commissions.payment_plan_id', '=', 'payment_plans.id')
-    ->select('commissions.*', 'payment_plans.*', 'payment_plans.created_by as payment_plan_created_by')
-    ->latest('payment_plans.created_at') // Specify the table for created_at column
-    ->get();
+            ->join('payment_plans', 'commissions.payment_plan_id', '=', 'payment_plans.id')
+            ->select('commissions.*', 'payment_plans.*', 'payment_plans.created_by as payment_plan_created_by')
+            ->latest('payment_plans.created_at') // Specify the table for created_at column
+            ->get();
 
-$commission_onetime_purchases = DB::table('commissions')
-    ->join('one_time_purchases', 'commissions.onetime_purchase_id', '=', 'one_time_purchases.id')
-    ->select('commissions.*', 'one_time_purchases.*', 'one_time_purchases.created_by as onetime_purchase_created_by')
-    ->latest('one_time_purchases.created_at') // Specify the table for created_at column
-    ->get();
+        $commission_onetime_purchases = DB::table('commissions')
+            ->join('one_time_purchases', 'commissions.onetime_purchase_id', '=', 'one_time_purchases.id')
+            ->select('commissions.*', 'one_time_purchases.*', 'one_time_purchases.created_by as onetime_purchase_created_by')
+            ->latest('one_time_purchases.created_at') // Specify the table for created_at column
+            ->get();
 
-$currentUserName = auth()->user()->name;
+        $currentUserName = auth()->user()->name;
 
-$commission_payment_plans_by_current_user = DB::table('commissions')
-    ->join('payment_plans', 'commissions.payment_plan_id', '=', 'payment_plans.id')
-    ->where('payment_plans.created_by', $currentUserName)
-    ->select('commissions.*', 'payment_plans.*', 'payment_plans.created_by as payment_plan_created_by')
-    ->latest('payment_plans.created_at') // Specify the table for created_at column
-    ->get();
+        $commission_payment_plans_by_current_user = DB::table('commissions')
+            ->join('payment_plans', 'commissions.payment_plan_id', '=', 'payment_plans.id')
+            ->where('payment_plans.created_by', $currentUserName)
+            ->select('commissions.*', 'payment_plans.*', 'payment_plans.created_by as payment_plan_created_by')
+            ->latest('payment_plans.created_at') // Specify the table for created_at column
+            ->get();
 
-$commission_onetime_purchases_by_current_user = DB::table('commissions')
-    ->join('one_time_purchases', 'commissions.onetime_purchase_id', '=', 'one_time_purchases.id')
-    ->where('one_time_purchases.created_by', $currentUserName)
-    ->select('commissions.*', 'one_time_purchases.*', 'one_time_purchases.created_by as onetime_purchase_created_by')
-    ->latest('one_time_purchases.created_at') // Specify the table for created_at column
-    ->get();
+        $commission_onetime_purchases_by_current_user = DB::table('commissions')
+            ->join('one_time_purchases', 'commissions.onetime_purchase_id', '=', 'one_time_purchases.id')
+            ->where('one_time_purchases.created_by', $currentUserName)
+            ->select('commissions.*', 'one_time_purchases.*', 'one_time_purchases.created_by as onetime_purchase_created_by')
+            ->latest('one_time_purchases.created_at') // Specify the table for created_at column
+            ->get();
 
 
 
