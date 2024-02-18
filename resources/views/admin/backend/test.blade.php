@@ -71,8 +71,8 @@
 					<tbody>
 					<tr>
 					  <th>#</th>
-					  <th>Gross Amount</th>
-					  <th class="text-right">Net Amount</th>
+					  <th>Amount Paid</th>
+					  
 					  
 					  <th class="text-right">Generated At</th>
 					  <th class="text-right">Subtotal</th>
@@ -80,9 +80,9 @@
 					<tr>
 					  <td>1</td>
 					  <td>KES {{$onetime_purchase->original_amount}}</td>
-					  <td class="text-right">KES {{$onetime_purchase->net_amount}}</td>
+					  
 					  <td class="text-right">{{\Carbon\Carbon::parse($onetime_purchase->created_at )->format('d F Y')}}</td>
-					  <td class="text-right">KES {{$onetime_purchase->net_amount}}</td>
+					  <td class="text-right">KES {{$onetime_purchase->original_amount}}</td>
 					  
 					</tr>
 					
@@ -97,7 +97,7 @@
 				<div class="col-12 text-right">
 					
 					<div class="total-payment">
-						<h3><b>Total :</b> KES {{$onetime_purchase->net_amount}} </h3>
+						<h3><b>Total :</b> KES {{$onetime_purchase->original_amount}} </h3>
 					</div>
 
 				</div>

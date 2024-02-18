@@ -245,8 +245,7 @@
         <thead>
           <tr>
             <th class="no">#</th>
-            <th class="desc">GROSS AMOUNT</th>
-            <th class="desc">NET AMOUNT</th>
+            <th class="desc">AMOUNT PAID</th>
             <th class="desc">PERIOD</th>
             <th class="desc">STATUS</th>
            
@@ -258,14 +257,14 @@
           <tr>
             <td class="no">01</td>
             <td class="desc">{{$paymentplan->original_amount}}</td>
-            <td class="desc">{{$paymentplan->net_amount}}</td>
+            
             <td class="desc">{{$paymentplan->months}} months</td>
             @if($paymentplan->status == 1)
             <td class="desc">Done </td>
             @else
             <td class="desc">Active </td>
             @endif
-            <td class="total">{{$paymentplan->net_amount}}</td>
+            <td class="total">{{$paymentplan->original_amount}}</td>
           </tr>
           
         </tbody>

@@ -71,8 +71,7 @@
 					<tbody>
 					<tr>
 					  <th>#</th>
-					  <th>Gross Amount</th>
-					  <th>Net Amount</th>
+					  <th>Amount Paid</th>
 					  <th class="text-right">Months</th>
 					  <th class="text-right">Status</th>
 					  <th class="text-right">Generated At</th>
@@ -81,7 +80,6 @@
 					<tr>
 					  <td>1</td>
 					  <td>{{$paymentplan->original_amount}}</td>
-					  <td>{{$paymentplan->net_amount}}</td>
 					  <td class="text-right">{{$paymentplan->months}}</td>
 					  @if($paymentplan->status == 1)
 					  <td class="text-right">Active</td>
@@ -89,7 +87,7 @@
 					  <td class="text-right">Done</td>
 					  @endif
 					  <td class="text-right">{{\Carbon\Carbon::parse($paymentplan->created_at )->format('d F Y')}}</td>
-					  <td class="text-right">{{$paymentplan->net_amount}}</td>
+					  <td class="text-right">{{$paymentplan->original_amount}}</td>
 					  
 					</tr>
 					

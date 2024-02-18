@@ -240,22 +240,22 @@
       <table border="0" cellspacing="0" cellpadding="0">
         <thead>
           <tr>
-            <th class="no">#</th>
-            <th class="desc">GROSS AMOUNT</th>
-            <th class="unit">NET AMOUNT</th>
+            <th class="no"></th>
+            <th class="desc">CURRENCY</th>
+            <th class="unit">AMOUNT PAID</th>
             <th class="qty">GENERATED AT</th>
             <th class="total">TOTAL</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td class="no">01</td>
-            <td class="desc">KSH {{$onetime_purchase->original_amount}}</td>
+            <td class="no"></td>
+            <td class="desc">KSH </td>
       
-            <td class="unit">KSH {{$onetime_purchase->net_amount}}</td>
+            <td class="unit"> {{$onetime_purchase->original_amount}}</td>
           
             <td class="qty">{{\Carbon\Carbon::parse($onetime_purchase->created_at )->format('d F Y')}}</td>
-            <td class="total">KSH {{$onetime_purchase->net_amount}}</td>
+            <td class="total"> {{$onetime_purchase->original_amount}}</td>
           </tr>
           
         </tbody>
@@ -265,7 +265,7 @@
           <tr>
             <td colspan="2"></td>
             <td colspan="2">GRAND TOTAL</td>
-            <td style="text-underline-position: 20px">KSH  {{$onetime_purchase->net_amount}}</td>
+            <td style="text-underline-position: 20px">KSH  {{$onetime_purchase->original_amount}}</td>
           </tr>
         </tfoot>
       </table>
