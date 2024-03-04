@@ -4,10 +4,10 @@
 											<th>One Time Purchase ID</th>
 											<th>Name </th>
 											<th>Gross Amount </th>
-											
+											<th>Net Amount Amount </th>
 											<th>Created By </th>
 											<th>Created At</th>
-											<th>Date</th>
+											
 											
 											
 											
