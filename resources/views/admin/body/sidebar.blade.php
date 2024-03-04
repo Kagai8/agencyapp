@@ -27,6 +27,7 @@
                 </a>
             </li>  
           @if(auth()->check()&& auth()->user()->role->name === 'Admin' || auth()->user()->role->name === 'Chairman' || auth()->user()->role->name === 'Manager')
+          <li class="header nav-small-cap">EMPLOYEE SECTION </li>
           <li class="treeview">
             <a href="">
               <i data-feather="message-circle"></i>
@@ -54,7 +55,7 @@
           </ul>
         </li>
         @endif
-
+        <li class="header nav-small-cap">CLIENT SECTION </li>
         <li class="treeview ">
           <a href="#">
             <i data-feather="mail"></i> <span>Customer Hub </span>
@@ -67,7 +68,7 @@
               <li class=""><a href="{{ route('manage-customer-account')}}"><i class="ti-more"></i>Manage Account</a></li>
           </ul>
         </li>
-
+        <li class="header nav-small-cap">FINANCE SECTION </li>
         <li class="treeview ">
           <a href="#">
             <i data-feather="mail"></i> <span>Financing </span>
@@ -80,22 +81,12 @@
               <li class=""><a href="{{ route('view-onetime-purchases')}}"><i class="ti-more"></i>Check One Off Purchases</a></li>
               <li class=""><a href="{{ route('create-payment-plan')}}"><i class="ti-more"></i>Create Payment Plan</a></li>
               <li class=""><a href="{{ route('view-payment-plans')}}"><i class="ti-more"></i>View Payment Plans</a></li>
-              
-          </ul>
-        </li>
-        <li class="treeview ">
-          <a href="#">
-            <i data-feather="mail"></i> <span>Payment Plan Overview </span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-right pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
               <li class=""><a href="{{ route('view-installments')}}"><i class="ti-more"></i>View Installments</a></li>
-              <li class=""><a href="{{ route('overview-payment-plans')}}"><i class="ti-more"></i>Payment Plans Overview</a></li>
               
           </ul>
         </li>
+        
+        <li class="header nav-small-cap">COMMISSION </li>
         <li class="treeview ">
           <a href="#">
             <i data-feather="mail"></i> <span>Commission Hub </span>
@@ -108,7 +99,27 @@
               
           </ul>
         </li>
+        <li class="header nav-small-cap">REPORTS</li>
+        <li class="treeview ">
+          <a href="#">
+            <i data-feather="mail"></i> <span>Reports </span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-right pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+              <li class=""><a href="{{ route('report-employee')}}"><i class="ti-more"></i>Employee Report</a></li>
+              <li class=""><a href="{{ route('report-paymentplan')}}"><i class="ti-more"></i>Payment Plans Report</a></li>
+              <li class=""><a href="{{ route('report-onetime')}}"><i class="ti-more"></i>One Off Report</a></li>
+              <li class=""><a href="{{ route('report-commission-onetime')}}"><i class="ti-more"></i>Commission(OFP)Report</a></li>
+              <li class=""><a href="{{ route('report-commission-pp')}}"><i class="ti-more"></i>Commission(PP) Report</a></li>
+              <li class=""><a href="{{ route('report-installments')}}"><i class="ti-more"></i>All Installments Report</a></li>
+              
+              
+          </ul>
+        </li>
         @if(auth()->check()&& auth()->user()->role->name === 'Admin' || auth()->user()->role->name === 'Chairman' || auth()->user()->role->name === 'Manager')
+        <li class="header nav-small-cap">USERS </li>
         <li class="treeview ">
           <a href="#">
             <i data-feather="mail"></i> <span>Users</span>
@@ -123,6 +134,7 @@
               
           </ul>
         </li>
+        <li class="header nav-small-cap">SUPPORT </li>
         <li class="treeview ">
           <a href="#">
             <i data-feather="mail"></i> <span>Support</span>

@@ -188,7 +188,7 @@
 
         #notices{
           padding-left: 6px;
-          border-left: 6px solid #0087C3;  
+          border-left: 6px solid #57B223;  
         }
 
         #notices .notice {

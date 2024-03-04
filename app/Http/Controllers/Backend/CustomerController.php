@@ -108,9 +108,22 @@ class CustomerController extends Controller
 
     public function CustomerAccountDetails($id){
 
-        $customer = Customer::findOrFail($id);
+    
+        $customer = Customer::with('paymentPlans','onetimePurchases','installments')->findOrFail($id);
         
         return view('admin.backend.customer.details_customer',compact('customer'));
+    }
+
+    public function SearchCustomerAccount(Request $request){
+
+        $searchTerm = $request->customer_search;
+
+        // Perform a partial match search on goat_id
+        $customers = Customer::where('customer_name', 'LIKE', "%$searchTerm%")->latest()->get();
+
+        return view('admin.backend.customer.search', compact('customers', 'searchTerm'));
+
+    
     }
     
 }

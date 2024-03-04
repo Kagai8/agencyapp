@@ -7,6 +7,7 @@ use App\Http\Controllers\Backend\PayRollController;
 use App\Http\Controllers\Backend\CustomerController;
 use App\Http\Controllers\Backend\PaymentPlanController;
 use App\Http\Controllers\Backend\UserController;
+use App\Http\Controllers\Backend\ReportsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -38,6 +39,8 @@ Route::group(['middleware' => ['auth', 'check.role:Admin,Manager,Chairman,User']
     Route::post('/admin/customer/update/account', [CustomerController::class, 'UpdateCustomerDetails'])->name('update-customer-details');
     Route::get('/admin/customer/delete/account/{id}', [CustomerController::class, 'DeleteCustomerDetails'])->name('delete-customer-details');
     Route::get('/admin/customer/details/{id}', [CustomerController::class, 'CustomerAccountDetails'])->name('customer-account');
+    Route::post('/admin/customer/search/account', [CustomerController::class, 'SearchCustomerAccount'])->name('customer-search');
+    
 
 
     //One Time Purchase
@@ -46,6 +49,9 @@ Route::group(['middleware' => ['auth', 'check.role:Admin,Manager,Chairman,User']
     Route::get('/admin/view/onetime/purchase', [PaymentPlanController::class, 'ViewOneTimePurchase'])->name('view-onetime-purchases');
     Route::get('/test/account/{id}', [PaymentPlanController::class, 'Test'])->name('test.details');
     Route::get('/receipt-generate-pdf/{id}', [PaymentPlanController::class, 'generatePDF'])->name('receipt-generate-pdf');
+    Route::post('/admin/onetime/search', [PaymentPlanController::class, 'SearchOneTimePurchase'])->name('onetime-purchase-search');
+    Route::post('/admin/payment/plan/search', [PaymentPlanController::class, 'SearchPaymentPlans'])->name('payment-plans-search');
+    Route::post('/admin/installment/search', [PaymentPlanController::class, 'SearchInstallments'])->name('installment-search');
 
 
     //Payment Plan
@@ -116,6 +122,19 @@ Route::group(['middleware' => ['auth', 'check.role:Admin,Manager,Chairman']], fu
     Route::get('/admin/generate/payroll', [PayRollController::class, 'EmployeeGeneratePayroll'])->name('generate-payroll');
     Route::get('/admin/payslip/{id}', [PayRollController::class, 'generatePayslip'])->name('generate-payslip');
 
+    //Reports Module
+    Route::get('/admin/report/employees', [ReportsController::class, 'EmployeeFullReport'])->name('report-employee');
+    Route::get('/admin/report/export/employees', [ReportsController::class, 'ExportEmployeeFullReport'])->name('report-employee-export');
+    Route::get('/admin/report/commission/onetime', [ReportsController::class, 'ExportCommissionOTPFullReport'])->name('report-commission-onetime');
+    Route::get('/admin/report/export/commission/onetime', [ReportsController::class, 'ExportExportCommissionOTPFullReport'])->name('report-commission-onetime-export');
+    Route::get('/admin/report/commission/pp', [ReportsController::class, 'ExportCommissionPPFullReport'])->name('report-commission-pp');
+    Route::get('/admin/report/export/commission/pp', [ReportsController::class, 'ExportExportCommissionPPFullReport'])->name('report-commission-pp-export');
+    Route::get('/admin/report/pp', [ReportsController::class, 'PaymentPlanFullReport'])->name('report-paymentplan');
+    Route::get('/admin/report/export/pp', [ReportsController::class, 'ExportPaymentPlanFullReport'])->name('report-paymentplan-export');
+    Route::get('/admin/report/onetime', [ReportsController::class, 'OneTimePurchaseFullReport'])->name('report-onetime');
+    Route::get('/admin/report/export/onetime', [ReportsController::class, 'ExportOneTimePurchaseFullReport'])->name('report-onetime-export');
+    Route::get('/admin/report/installments', [ReportsController::class, 'InstallmentsFullReport'])->name('report-installments');
+    Route::get('/admin/report/export/installments', [ReportsController::class, 'ExportInstallmentsFullReport'])->name('report-installments-export');
 });
 
 /*

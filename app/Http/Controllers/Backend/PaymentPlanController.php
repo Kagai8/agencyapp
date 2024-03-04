@@ -265,7 +265,10 @@ class PaymentPlanController extends Controller
         // Check if the user is the chairman
                 if (auth()->user()->role->name == 'Chairman') {
                     // Chairman can approve
-                    $paymentPlan->update(['approval' => 1]);
+                    $paymentPlan->update([
+                        'approval' => 1,
+                        'commission_credited' => 1, // Or whatever value you want to set
+                    ]);
 
                     // If the plan is approved and duration is greater than 3 months, calculate and store commission
                     if ($paymentPlan->months > 3) {
@@ -368,6 +371,8 @@ class PaymentPlanController extends Controller
         
         return view('admin.commission.view_commissions',compact('commission_payment_plans','commission_onetime_purchases','commission_onetime_purchases_by_current_user','commission_payment_plans_by_current_user'));
     } 
+
+
 
     //Comission Section
     public function CreateOneTimePurchase(){
@@ -518,12 +523,55 @@ class PaymentPlanController extends Controller
                 'balance' => $paymentPlan->net_amount - $totalPaidAmount,
             ]);
         $notification = array(
-            'message' => 'Installment Updated Successfully',
+            'message' => 'Installment Updated and Balance Updated Successfully',
             'alert-type' => 'success'
         );
 
         return redirect()->route('view-payment-plans')->with($notification);
 
+    }
+
+    public function SearchOneTimePurchase(Request $request){
+
+        $searchTerm = $request->customer_search;
+
+        // Perform a partial match search on goat_id
+        // Perform a search based on customer name
+            $one_time_purchases = OneTimePurchase::with('customer')->whereHas('customer', function($query) use ($searchTerm) {
+                $query->where('customer_name', 'LIKE', "%$searchTerm%");
+            })->latest()->get();
+        return view('admin.paymentplan.search_ot', compact('one_time_purchases', 'searchTerm'));
+
+    
+    }
+
+    public function SearchPaymentPlans(Request $request){
+
+        $searchTerm = $request->customer_search;
+
+        // Perform a partial match search on goat_id
+        // Perform a search based on customer name
+            $payment_plans = PaymentPlan::with('customer')->whereHas('customer', function($query) use ($searchTerm) {
+                $query->where('customer_name', 'LIKE', "%$searchTerm%");
+            })->latest()->get();
+        return view('admin.paymentplan.search_pp', compact('payment_plans', 'searchTerm'));
+
+    
+    }
+
+    public function SearchInstallments(Request $request){
+
+        $searchTerm = $request->customer_search;
+
+        // Perform a partial match search on goat_id
+        // Perform a search based on customer name
+            $installments = Installment::with('customer')->whereHas('customer', function($query) use ($searchTerm) {
+                $query->where('customer_name', 'LIKE', "%$searchTerm%");
+            })->latest()->get();
+
+        return view('admin.paymentplan.search_installment', compact('installments', 'searchTerm'));
+
+    
     }
     
 }

@@ -136,8 +136,8 @@
 								<div class="row">
 	                                <div class="col-12">
 	                                	<div class="section-divider">
-					                <h5>2. Installment Information</h5>
-					            </div>
+					                		<h5>2. Installment Information</h5>
+					            		</div>
 	                                    <table class="table" id="installments_table">
 	                                        <thead>
 					                            <tr>

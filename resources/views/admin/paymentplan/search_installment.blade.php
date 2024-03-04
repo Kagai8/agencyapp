@@ -6,44 +6,7 @@
   
 	  <div class="container-full">
 		<!-- Content Header (Page header) -->
-		 <section class="content">
-						  	<div class="row">
-								<div class="box">
-									<div class="box-header">
-										<p>Search Installments By Customer Name</p>
-
-									</div>
-									<div class="box-body">
-			        <form method="post" action="{{ route('installment-search') }}" enctype="multipart/form-data">
-			            @csrf
-			            <div class="row">
-			                <div class="col-md-9">
-			                    <div class="form-group">
-			                        <h5>Search: <span class="text-danger">*</span></h5>
-			                        <div class="controls">
-			                            <input type="text" name="customer_search" class="form-control" placeholder="Search by Customer Name..." required="">
-			                            @error('customer_search')
-			                            <span class="text-danger">{{ $message }}</span>
-			                            @enderror
-			                        </div>
-			                    </div>
-			                </div>
-			                <div class="col-md-3">
-			                    <div class="form-group">
-			                        <label class="hidden-xs">&nbsp;</label> <!-- Empty label for spacing -->
-			                        <div class="controls">
-			                            <input type="submit" class="btn btn-rounded btn-primary mb-5" value=" Search">
-			                        </div>
-			                    </div>
-			                </div>
-			            </div>
-			        </form>
-			    </div>
-							<!-- /.col -->
-
-						  </div>
-						  <!-- /.row -->
-			</section>
+		 
 
 		<!-- Main content -->
 			<section class="content">
@@ -74,7 +37,7 @@
 										 <tr>
 										 	<td>IM{{ $item->id }}</td>
 											 <td>PP{{ $item->payment_plan_id }}</td>
-											 <td>{{ $item->customer_name }}</td>
+											 <td>{{ $item->customer->customer_name }}</td>
 											 <td>{{ $item->installment }} </td>
 											 <td> {{ $item->recorded_by }}</td>
 											 <td> {{ $item->created_at }}</td>

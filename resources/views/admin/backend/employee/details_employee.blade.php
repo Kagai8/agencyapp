@@ -228,14 +228,14 @@
                             <div class="col-md-6">
                                 <!-- Add details or content for the left side here -->
                                 <div class="details-section" style="border-right: 1px solid #e3e3e3; padding-right: 15px;">
-                                    <h6>Basic Salary:</h6>
+                                    <h6>Employee PAYE:</h6>
                                     <p> {{ $employee->employee_paye}} </p>
                                     
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="details-section" style="padding-left: 15px;">
-                                    <h6>Housing Allowances:</h6>
+                                    <h6>Employee NSSF:</h6>
                                     <p> {{ $employee->employee_nssf}} </p>
                                 </div>
                             </div>
@@ -244,7 +244,7 @@
                             <div class="col-md-6">
                                 <!-- Add details or content for the left side here -->
                                 <div class="details-section" style="border-right: 1px solid #e3e3e3; padding-right: 15px;">
-                                    <h6>Other Allowances :</h6>
+                                    <h6>Employee NHIF :</h6>
                                      <p>{{ $employee->employee_nhif}} </p>
                                     
                                 </div>
@@ -252,7 +252,7 @@
 
                             <div class="col-md-6">
                                 <div class="details-section" style="padding-left: 15px;">
-                                    <h6>Employee Bonuses:</h6>
+                                    <h6>Employee COTU:</h6>
                                     <p> {{ $employee->employee_cotu}} </p>
                                 </div>
                             </div>

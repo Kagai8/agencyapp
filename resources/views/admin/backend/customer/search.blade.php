@@ -6,44 +6,7 @@
   
 	  <div class="container-full">
 		<!-- Content Header (Page header) -->
-		 			<section class="content">
-						  	<div class="row">
-								<div class="box">
-									<div class="box-header">
-										<p>Search Customer Name</p>
-
-									</div>
-									<div class="box-body">
-			        <form method="post" action="{{ route('customer-search') }}" enctype="multipart/form-data">
-			            @csrf
-			            <div class="row">
-			                <div class="col-md-9">
-			                    <div class="form-group">
-			                        <h5>Search: <span class="text-danger">*</span></h5>
-			                        <div class="controls">
-			                            <input type="text" name="customer_search" class="form-control" placeholder="Search by Customer Name..." required="">
-			                            @error('customer_search')
-			                            <span class="text-danger">{{ $message }}</span>
-			                            @enderror
-			                        </div>
-			                    </div>
-			                </div>
-			                <div class="col-md-3">
-			                    <div class="form-group">
-			                        <label class="hidden-xs">&nbsp;</label> <!-- Empty label for spacing -->
-			                        <div class="controls">
-			                            <input type="submit" class="btn btn-rounded btn-primary mb-5" value=" Search">
-			                        </div>
-			                    </div>
-			                </div>
-			            </div>
-			        </form>
-			    </div>
-							<!-- /.col -->
-
-						  </div>
-						  <!-- /.row -->
-			</section>
+		 			
 
 		<!-- Main content -->
 			<section class="content">
@@ -52,11 +15,13 @@
 
 						 <div class="box">
 							<div class="box-header with-border">
-							  <h3 class="box-title">Customer List <span class="badge badge-pill badge-danger"> {{ count($customers) }} </span></h3>
+							  <h3 class="box-title">Search Results <span class="badge badge-pill badge-danger"> {{ count($customers) }} </span></h3>
 							</div>
 							<!-- /.box-header -->
 							<div class="box-body">
+								@if(isset($customers) && $customers->count() > 0)
 								<div class="table-responsive">
+
 								  <table id="example1" class="table table-bordered table-striped">
 									<thead>
 										<tr>
@@ -96,6 +61,20 @@
 							 
 						  			</table>
 								</div>
+								@else
+								<div class="table-responsive">
+
+								  <table id="example1" class="table table-bordered table-striped">
+									<thead>
+										<h3>Oops...</h3>
+									</thead>
+										<tbody>
+										 <p>No search results</p>
+										</tbody>
+							 
+						  			</table>
+						  			@endif
+								</div>
 							</div>
 						<!-- /.box-body -->
 				  		</div>
@@ -115,8 +94,7 @@
 		<!-- /.content -->
 	  
 	  </div>
+
+	  @endsection
   
 
-
-
-@endsection

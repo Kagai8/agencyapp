@@ -129,6 +129,183 @@
             
 		</div>
 		  <!-- /.box -->
+
+        <div class="box">
+                <div class="box-header with-border">
+                  <h4 class="box-title">One Off Purchases  for {{ $customer->name}}, ID: C{{$customer->id  }}</h4>
+                  <small class="subtitle">Summary for One Off Purchases details</small>
+                </div>
+
+                  
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <div class="table-responsive">
+                        @if(isset($customer->onetimePurchases) && $customer->onetimePurchases->count() > 0)
+                                  <table id="example1" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>One Time Purchase ID</th>
+                                            
+                                            <th>Gross Amount </th>
+                                            <th>Net Amount </th>
+                                            <th>Created By </th>
+                                            <th>Date</th>
+                                            
+                                            
+                                            
+                                             
+                                        </tr>
+                                    </thead>
+                                        <tbody>
+                                         @foreach($customer->onetimePurchases as $item)
+                                         <tr>
+                                             <td>OTP{{ $item->id }}</td>
+                                             
+                                             <td>{{ $item->original_amount }} </td>
+                                             <td>{{ $item->net_amount }} </td>
+                                             <td>{{ $item->created_by }} </td>
+                                             <td> {{ \Carbon\Carbon::parse($item->created_at )->format('d F Y')}}</td>
+                                             
+                                             
+
+
+                                            
+                                                                 
+                                         </tr>
+                                          @endforeach
+                                        </tbody>
+                             
+                                    </table>
+                                    @else
+                                    <table id="example1" class="table table-bordered table-striped">
+                                    
+                                        <tbody>
+                                         <p>No Data To Display</p>
+                                        </tbody>
+                                    
+                                    </table>
+                                    @endif
+                                </div>
+
+                </div>
+                <!-- /.box-body -->
+            </div>
+
+            <div class="box">
+                <div class="box-header with-border">
+                  <h4 class="box-title">Payment Plans for {{ $customer->customer_name}}, ID: C{{$customer->id  }}</h4>
+                  <small class="subtitle">Summary for payment plans details</small>
+                </div>
+
+                  
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <div class="table-responsive">
+                        @if(isset($customer->paymentPlans) && $customer->paymentPlans->count() > 0)
+                                  <table id="example1" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Payment Plan ID</th>
+                                            <th>Gross Amount</th>
+                                            <th>Net Amount </th>
+                                            <th>Balance</th>
+                                            <th>Approval </th>
+                                        </tr>
+                                    </thead>
+                                        <tbody>
+                                         @foreach($customer->paymentPlans as $item)
+                                         <tr>
+                                             <td width="10%">PP{{ $item->id }}</td>
+                                             
+                                             <td>{{ $item->net_amount }} </td>
+                                             <td>{{ $item->original_amount }} </td>
+                                             <td> {{ $item->balance }}</td>
+
+                                             <td>
+                                                @if($item->approval == 1)
+                                                <span class="badge badge-pill badge-success"> Approved </span>
+                                                @else
+                                               <span class="badge badge-pill badge-warning"> Pending  </span>
+                                                @endif
+                                             </td>
+                                         </tr>
+                                            @endforeach
+                                        </tbody>
+                             
+                                    </table>
+                                    @else
+                                    <table id="example1" class="table table-bordered table-striped">
+                                    
+                                        <tbody>
+                                         <p>No Data To Display</p>
+                                        </tbody>
+                                    
+                                    </table>
+                                    @endif
+                                </div>
+
+                </div>
+                <!-- /.box-body -->
+            </div>
+
+            <div class="box">
+                <div class="box-header with-border">
+                  <h4 class="box-title">Installment History for {{ $customer->customer_name}}, ID: C{{$customer->id  }}</h4>
+                  <small class="subtitle">Summary for installments </small>
+                </div>
+
+                  
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <div class="table-responsive">
+                        @if(isset($customer->installments) && $customer->installments->count() > 0)
+                                  <table id="example1" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Installment ID</th>
+                                            <th>Payment Plan ID</th>
+                                            
+                                            <th>Installment </th>
+                                            <th>Recorded By </th>
+                                            <th>Created At</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                        <tbody>
+                                         @foreach($customer->installments as $item)
+                                         <tr>
+                                             <td>IM{{ $item->id }}</td>
+                                             <td>PP{{ $item->payment_plan_id }}</td>
+                                             
+                                             <td>{{ $item->installment }} </td>
+                                             <td> {{ $item->recorded_by }}</td>
+                                             <td> {{ $item->created_at }}</td>
+                                             <td>
+                                                @if($item->status)
+                                                    <span class="badge badge-success">Paid</span>
+                                                @else
+                                                    <span class="badge badge-danger">Unpaid</span>
+                                                @endif
+                                             </td>
+                                         </tr>
+                                            @endforeach
+                                        </tbody>
+                             
+                                    </table>
+                                    @else
+                                    <table id="example1" class="table table-bordered table-striped">
+                                    
+                                        <tbody>
+                                         <p>No Data To Display</p>
+                                        </tbody>
+                                    
+                                    </table>
+                                    @endif
+                                </div>
+
+                </div>
+                <!-- /.box-body -->
+            </div>
 	</section>
 		<!-- /.content -->
 </div>
