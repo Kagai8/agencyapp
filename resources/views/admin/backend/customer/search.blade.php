@@ -1,4 +1,7 @@
 @extends('admin.admin_master')
+@section('title')
+<title>Customer Search Details</title>
+@endsection
 @section('admin')
 
 

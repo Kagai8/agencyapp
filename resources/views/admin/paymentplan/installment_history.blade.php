@@ -1,4 +1,7 @@
 @extends('admin.admin_master')
+@section('title')
+<title>Installment History For PP{{$payment_plan->id}}</title>
+@endsection
 @section('admin')
 
 

@@ -1,4 +1,7 @@
 @extends('admin.admin_master')
+@section('title')
+<title>Report for Commissions from Payment Plans</title>
+@endsection
 @section('admin')
 
 

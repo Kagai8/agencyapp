@@ -1,4 +1,7 @@
 @extends('admin.admin_master')
+@section('title')
+<title>Payment Plans</title>
+@endsection
 @section('admin')
 
 

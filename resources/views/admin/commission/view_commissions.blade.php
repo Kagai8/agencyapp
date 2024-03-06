@@ -1,4 +1,7 @@
 @extends('admin.admin_master')
+@section('title')
+<title>Commissions List</title>
+@endsection
 @section('admin')
 
 

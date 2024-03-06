@@ -1,4 +1,7 @@
 @extends('admin.admin_master')
+@section('title')
+<title>Print Preview</title>
+@endsection
 @section('admin')
 
 <section class="invoice printableArea">

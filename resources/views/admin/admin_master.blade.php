@@ -8,7 +8,8 @@
     <meta name="author" content="">
     <link rel="icon" href="{{ asset('logo/logo.jpg') }}">
 
-    <title>GreenLine Insurance Agencies</title>
+    @yield('title')
+
     
 	<!-- Vendors Style-->
 	<link rel="stylesheet" href="{{ asset('backend/css/vendors_css.css') }}">

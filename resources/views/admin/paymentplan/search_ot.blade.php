@@ -1,4 +1,7 @@
 @extends('admin.admin_master')
+@section('title')
+<title>Search One Off Time Purchases</title>
+@endsection
 @section('admin')
 
 

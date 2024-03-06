@@ -1,4 +1,7 @@
 @extends('admin.admin_master')
+@section('title')
+<title>Report for One Time Purchases</title>
+@endsection
 @section('admin')
 
 

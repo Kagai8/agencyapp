@@ -1,4 +1,7 @@
 @extends('admin.admin_master')
+@section('title')
+<title>Edit {{$customer->customer_name}}'s details </title>
+@endsection
 @section('admin')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 

@@ -1,4 +1,7 @@
 @extends('admin.admin_master')
+@section('title')
+<title>Generate Payslips</title>
+@endsection
 @section('admin')
 
 

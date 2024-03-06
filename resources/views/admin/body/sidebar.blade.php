@@ -65,7 +65,7 @@
           </a>
           <ul class="treeview-menu">
               <li class=""><a href="{{ route('create-customer-account')}}"><i class="ti-more"></i>Create Account</a></li>
-              <li class=""><a href="{{ route('manage-customer-account')}}"><i class="ti-more"></i>Manage Account</a></li>
+              <li class=""><a href="{{ route('manage-customer-account')}}"><i class="ti-more"></i>Manage Accounts</a></li>
           </ul>
         </li>
         <li class="header nav-small-cap">FINANCE SECTION </li>

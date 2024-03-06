@@ -1,4 +1,7 @@
 @extends('admin.admin_master')
+@section('title')
+<title>Search Payment Plan</title>
+@endsection
 @section('admin')
 
 
