@@ -8,6 +8,7 @@ use App\Http\Controllers\Backend\CustomerController;
 use App\Http\Controllers\Backend\PaymentPlanController;
 use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\Backend\ReportsController;
+use App\Http\Controllers\SettingsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,11 +25,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('auth/login');;
 });
+Route::get('/minister/login', function () {
+    return view('superadmin/auth/login');;
+});
 Route::get('/laravel', function () {
     return view('welcome');;
 });
 
-Route::group(['middleware' => ['auth', 'check.role:Admin,Manager,Chairman,User']], function (){
+Route::group(['middleware' => ['auth', 'check.role:Admin,Manager,Chairman,User,Minister']], function (){
 
     //Customer Module
 
@@ -91,7 +95,7 @@ Route::group(['middleware' => ['auth', 'check.role:Admin,Manager,Chairman,User']
 
 });
 
-Route::group(['middleware' => ['auth', 'check.role:Admin,Manager,Chairman']], function (){
+Route::group(['middleware' => ['auth', 'check.role:Admin,Manager,Chairman,Minister']], function (){
 
     //User Management
     Route::get('/admin/create/user', [UserController::class, 'CreateUser'])->name('create-user');
@@ -151,7 +155,7 @@ Route::middleware('auth')->group(function () {
     
 });
 
-Route::group(['middleware' => ['auth', 'check.role:Chairman']], function (){
+Route::group(['middleware' => ['auth', 'check.role:Chairman,Minister']], function (){
 
     Route::get('paymentplan/disapproved/{id}', [PaymentPlanController::class, 'PaymentPlanNotApproved'])->name('paymentplan.disapproved');
 
@@ -218,5 +222,16 @@ Route::group(['middleware' => ['auth', 'check.role:Chairman']], function (){
  Route::get('/admin/payslip/{id}', [PayRollController::class, 'generatePayslip'])->name('generate-payslip');*/
 
 require __DIR__.'/auth.php';
+
+Route::group(['middleware' => ['auth', 'Minister']], function (){
+
+    Route::get('/minister/settings/suspension', [SettingsController::class, 'Suspension'])->name('suspension');
+
+    Route::post('/minister/settings/reason/store', [SettingsController::class, 'ReasonStore'])->name('create.reason');
+
+    Route::get('/minister/settings/app/suspend/{id}', [SettingsController::class, 'AppInActive'])->name('activate.account');
+
+    Route::get('/minister/settings/app/activate/{id}', [SettingsController::class, 'AppActive'])->name('suspend.account');
+});
 
 

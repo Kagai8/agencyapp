@@ -64,7 +64,9 @@
 			<ul class="dropdown-menu animated flipInX">
 				
 			   <li class="user-body">
+			   	@if(auth()->check() && auth()->user()->name)
 			   	<a class="dropdown-item" ><i class="ti-user text-muted mr-2"></i> {{auth()->user()->name}}</a>
+			   	@endif
 			   	<a class="dropdown-item" href="{{ route('user.change.password') }}"><i class="ti-lock"></i> Change Password</a>
 					  <form method="POST" action="{{ route('logout') }}">
                     @csrf

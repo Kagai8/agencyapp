@@ -14,17 +14,42 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     
     <link rel="stylesheet" href="{{ asset('auth/css/style.css')}}">
-
+    <style>
+       body, html {
+      height: 93%;
+      background-color: #fff; /* Set body background color to white */
+    }
+    .ftco-section {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+    }
+    .wrap {
+      display: flex;
+      flex-wrap: nowrap;
+    }
+    .img {
+      flex: 50%;
+      background-size: cover;
+      background-position: center;
+    }
+    .login-wrap {
+      flex: 50%;
+      padding: 40px;
+      background-color: #fff; /* Set a background color to ensure visibility */
+    }
+  </style>
     </head>
     <body>
         
     <section class="ftco-section">
         <div class="container">
             @if(session('notification'))
-    <div class="alert alert-{{ session('notification.alert-type') }}">
-        {{ session('notification.message') }}
-    </div>
-@endif
+            <div class="alert alert-{{ session('notification.alert-type') }}">
+                {{ session('notification.message') }}
+            </div>
+            @endif
             <div class="row justify-content-center">
 
                 <div class="col-md-12 col-lg-10">
@@ -50,9 +75,7 @@
                                 </div>
                             </div>
                         <div class="d-flex">
-                            <div class="w-100">
-                                <h3 class="mb-4">Log In</h3>
-                            </div>
+                            
                                     
                         </div>
                         <form method="POST" action="{{ route('login') }}" class="signin-form">
@@ -75,7 +98,7 @@
                             @endif
 
                             <div class="form-group">
-                                <button type="submit" class="form-control btn btn-primary submit px-3">Sign In</button>
+                                <button type="submit" class="form-control btn btn-primary submit px-3">Log In</button>
                             </div>
                         </form>
 

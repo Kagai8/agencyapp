@@ -26,6 +26,39 @@
       			<span>Dashboard</span>
                 </a>
             </li>  
+             @if(auth()->check()&& auth()->user()->role->name === 'Minister'  )
+        <li class="header nav-small-cap">SETTINGS </li>
+        <li class="treeview ">
+          <a href="#">
+            <i data-feather="mail"></i> <span>App Settings </span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-right pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+              <li class=""><a href="{{ route('suspension')}}"><i class="ti-more"></i>Suspend App</a></li>
+              
+          </ul>
+        </li>
+        <li class="header nav-small-cap">Log out </li>
+        <li class="treeview ">
+          
+          
+              <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+<a ><i class="ti-more">
+                    <x-responsive-nav-link :href="route('logout')"
+                            onclick="event.preventDefault();
+                                        this.closest('form').submit();">
+                        {{ __('Log Out') }}
+                    </x-responsive-nav-link>
+                </form>
+              </i></a>
+          </li>
+              
+         
+        
+        @endif
           @if(auth()->check()&& auth()->user()->role->name === 'Admin' || auth()->user()->role->name === 'Chairman' || auth()->user()->role->name === 'Manager')
           <li class="header nav-small-cap">EMPLOYEE SECTION </li>
           <li class="treeview">
@@ -55,6 +88,7 @@
           </ul>
         </li>
         @endif
+        @if(auth()->check()&& auth()->user()->role->name === 'Admin' || auth()->user()->role->name === 'Chairman' || auth()->user()->role->name === 'Manager' || auth()->user()->role->name === 'User' )
         <li class="header nav-small-cap">CLIENT SECTION </li>
         <li class="treeview ">
           <a href="#">
@@ -118,7 +152,8 @@
               
           </ul>
         </li>
-        @if(auth()->check()&& auth()->user()->role->name === 'Admin' || auth()->user()->role->name === 'Chairman' || auth()->user()->role->name === 'Manager')
+        @endif
+        @if(auth()->check()&& auth()->user()->role->name === 'Admin' || auth()->user()->role->name === 'Chairman' || auth()->user()->role->name === 'Manager' || auth()->user()->role->name === 'Minister')
         <li class="header nav-small-cap">USERS </li>
         <li class="treeview ">
           <a href="#">
