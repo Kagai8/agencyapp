@@ -17,9 +17,7 @@ class CheckAppStatus
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::check() && Auth::user()->role->name === 'Minister') {
-            return $next($request); // Minister can access the app regardless of status
-        }
+        
 
         // Check the application status
         $status = Setting::where('suspension_status', 1)->first();
@@ -31,4 +29,5 @@ class CheckAppStatus
 
                 return $next($request);
             }
-        }
+}
+
